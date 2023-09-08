@@ -5,7 +5,7 @@ import Box from '@mui/joy/Box'
 import { argentXManager, starknetManager } from '@/shared/lib'
 
 export function AccountsPage() {
-  const { createAccount, deployAccount } = useUnit(argentXManager)
+  const { createAccount } = useUnit(argentXManager)
   return <>
     <Button
       onClick={() => createAccount()}
