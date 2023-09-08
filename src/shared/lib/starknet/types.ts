@@ -4,7 +4,8 @@ export interface AccountData {
   privateKey: string
 }
 
+export type ProviderType = 'rpc' | 'sequencer'
 export interface ProviderPayload {
-  type: 'rpc' | 'sequencer'
+  type: ProviderType
   url: string
 }

@@ -1,28 +1,45 @@
 import { createEvent, createStore, sample } from 'effector'
+import { constants } from 'starknet'
+import { createForm } from 'effector-forms'
 import { persist } from 'effector-storage/local'
-import { starknetManager } from '@/shared/lib'
-import type { ProviderPayload } from '@/shared/lib'
+import { type ProviderPayload, type ProviderType, starknetManager } from '@/shared/lib'
 
-const $provider = createStore<ProviderPayload | null>(null)
+const $provider = createStore<ProviderPayload>({
+  type: 'sequencer',
+  url: constants.NetworkName.SN_MAIN,
+})
+
 const $password = createStore('')
-
-const changeProviderCalled = createEvent<ProviderPayload>()
 const changePasswordCalled = createEvent<string>()
 
+export const providerForm = createForm({
+  fields: {
+    type: {
+      init: 'sequencer' as ProviderType,
+    },
+    url: {
+      init: '' as string,
+    },
+  },
+  validateOn: ['submit'],
+})
+
 sample({
-  clock: changeProviderCalled,
+  clock: providerForm.formValidated,
+  filter: (p: ProviderPayload | null): p is ProviderPayload => Boolean(p),
   target: $provider,
 })
 sample({
   clock: $provider,
-  filter: (p: ProviderPayload | null): p is ProviderPayload => Boolean(p),
-  target: starknetManager.changeProvider,
+  target: [
+    starknetManager.changeProvider,
+    providerForm.setForm,
+  ],
 })
 
 export const settings = {
-  changeProvider: changeProviderCalled,
-  changePassword: changePasswordCalled,
   password: $password,
+  changePassword: changePasswordCalled,
 }
 
 persist({ store: $provider, key: 'starknet-provider' })
