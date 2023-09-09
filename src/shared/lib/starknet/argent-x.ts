@@ -1,7 +1,7 @@
 import { attach, combine, createEffect, createEvent, createStore, sample } from 'effector'
-import type { Provider } from 'starknet'
 import { Account, CallData, ec, hash, stark } from 'starknet'
-import { debug, spread } from 'patronum'
+import { spread } from 'patronum'
+import type { Provider } from 'starknet'
 import { starknetManager } from './model'
 import type { AccountData } from './types'
 import { constants } from '@/shared/config'
@@ -43,14 +43,13 @@ spread({
 })
 
 export const argentXManager = {
+  accountConfig: $accountConfig,
   createAccount: createAccountFx,
   deployAccount: deployAccountFx,
   updateClassHash: updateClassHashCalled,
 }
 
-debug(argentXManager)
-
-function createArgentXAccount({
+export function createArgentXAccount({
   proxyClassHash,
   accountClassHash,
 }: {
@@ -73,7 +72,7 @@ function createArgentXAccount({
   }
 }
 
-async function deployArgentXAccount({
+export async function deployArgentXAccount({
   provider,
   privateKey,
   publicKey,

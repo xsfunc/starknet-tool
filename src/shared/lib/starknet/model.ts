@@ -1,6 +1,5 @@
 import { createEvent, createStore, sample } from 'effector'
 import { Provider, constants } from 'starknet'
-import { persist } from 'effector-storage/local'
 import type { AccountData, ProviderPayload } from './types'
 
 const $provider = createStore(getProvider())
@@ -29,8 +28,6 @@ export const starknetManager = {
   addAccount: addAccountCalled,
   changeProvider: changeProviderCalled,
 }
-
-persist({ store: $accounts, key: 'starknet-accounts' })
 
 function getProvider(payload?: ProviderPayload): Provider {
   const network = constants.NetworkName.SN_MAIN
