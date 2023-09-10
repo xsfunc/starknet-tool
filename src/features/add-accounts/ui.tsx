@@ -42,6 +42,6 @@ export function AddAccountButton() {
     size='sm'
     onClick={() => addAccount()}
   >
-    Add accounts
+    Add account
   </Button>
 }
