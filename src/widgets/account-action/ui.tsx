@@ -1,11 +1,13 @@
-import { Dropdown, IconButton, Menu, MenuButton, MenuItem } from '@mui/joy'
+import { Dropdown, IconButton, ListDivider, Menu, MenuButton, MenuItem } from '@mui/joy'
 import { useUnit } from 'effector-react'
 import type { AccountAction as Props } from '@/entities/accounts'
 import MenuIcon from '~icons/solar/menu-dots-outline'
 import { topUpModal } from '@/features/top-up-accounts'
+import { removeAccountDialog } from '@/features/remove-account'
 
 export function AccountAction({ address }: Props) {
   const { open: openTopUpModal } = useUnit(topUpModal)
+  const { open: openRemoveAccountDialog } = useUnit(removeAccountDialog)
   return (
     <Dropdown>
       <MenuButton
@@ -23,6 +25,13 @@ export function AccountAction({ address }: Props) {
         </MenuItem>
         <MenuItem>
           Deploy account contract
+        </MenuItem>
+        <ListDivider />
+        <MenuItem
+          color='danger'
+          onClick={() => openRemoveAccountDialog({ toRemove: address })}
+        >
+          Remove
         </MenuItem>
       </Menu>
     </Dropdown>
