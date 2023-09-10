@@ -1,31 +1,47 @@
 import { createEvent, sample } from 'effector'
-import { debug } from 'patronum'
+import { invoke } from '@withease/factories'
+import { createForm } from 'effector-forms'
 import { settings } from '@/entities/settings'
-import { okxApi } from '@/shared/lib'
+import { createModal, okxApi } from '@/shared/lib'
 import type { Withdrawal } from '@/shared/lib/okx/types'
 
 const topUpCalled = createEvent<string>()
 
+export const topUpForm = createForm({
+  fields: {
+    address: {
+      init: '' as string,
+    },
+    amount: {
+      init: '0.001' as string,
+    },
+    fee: {
+      init: '0.0001' as string,
+    },
+  },
+  validateOn: ['submit'],
+})
+
+export const topUpModal = invoke(createModal<{ address: string }>)
+
 sample({
-  clock: topUpCalled,
+  clock: topUpModal.opened,
+  target: topUpForm.setForm,
+})
+sample({
+  clock: topUpForm.formValidated,
   source: settings.okx.credentials,
-  fn: (credentials, address): Withdrawal => ({
+  fn: (credentials, { address, amount, fee }): Withdrawal => ({
+    fee,
     credentials,
-    ccy: 'ETH',
-    amt: '0.001',
-    dest: '4',
     toAddr: address,
-    fee: '0.0001',
+    amt: amount,
+    dest: '4', // onchain
+    ccy: 'ETH',
     chain: 'ETH-StarkNet',
     walletType: 'private',
   }),
   target: okxApi.mutation.withdraw.start,
-})
-
-debug({
-  start: okxApi.mutation.withdraw.start,
-  failed: okxApi.mutation.withdraw.$failed,
-  status: okxApi.mutation.withdraw.$status,
 })
 
 export const topUpAccount = topUpCalled

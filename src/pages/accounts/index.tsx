@@ -3,6 +3,7 @@ import { useUnit } from 'effector-react'
 
 import { AccountsTable, accountsModel } from '@/entities/accounts'
 import { AddAccountButton } from '@/features/add-accounts'
+import { AccountAction } from '@/widgets/account-action'
 
 export function AccountsPage() {
   const { downloadAccounts } = useUnit(accountsModel)
@@ -28,6 +29,7 @@ export function AccountsPage() {
         <AddAccountButton />
       </Stack>
     </Stack>
-    <AccountsTable />
+
+    <AccountsTable Action={AccountAction} />
   </>
 }

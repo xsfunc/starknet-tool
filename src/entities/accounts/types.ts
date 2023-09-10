@@ -5,3 +5,7 @@ export interface RawAccount {
   status: 'created' | 'deployed'
   encrypted: boolean
 }
+
+export interface AccountAction {
+  address: string
+}

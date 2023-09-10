@@ -1,13 +1,17 @@
-import { Checkbox, IconButton, Sheet, Stack } from '@mui/joy'
+import { Checkbox, Sheet, Stack } from '@mui/joy'
 import Table from '@mui/joy/Table'
 import { useList } from 'effector-react'
+import React from 'react'
 import { shortAddress } from './methods'
+import type { AccountAction } from './types'
 import { accountsModel } from '.'
 import { CopyButton, OpenLink } from '@/shared/ui'
-import MenuIcon from '~icons/solar/menu-dots-outline'
-import { TopUpBalance } from '@/features/top-up-accounts'
 
-export function AccountsTable() {
+interface Props {
+  Action: React.FC<AccountAction>
+}
+
+export function AccountsTable({ Action }: Props) {
   const list = useList(accountsModel.rawAccounts, ({ contractAddress }) => (
     <tr>
       <td>
@@ -28,10 +32,7 @@ export function AccountsTable() {
       <td>created</td>
       <td>?</td>
       <td>
-        <IconButton variant='soft' size='sm'>
-          <MenuIcon />
-        </IconButton>
-        <TopUpBalance address={contractAddress} />
+        <Action address={contractAddress} />
       </td>
     </tr>
   ))
