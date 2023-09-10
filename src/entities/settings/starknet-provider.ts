@@ -4,7 +4,7 @@ import { createForm } from 'effector-forms'
 import { persist } from 'effector-storage/local'
 import { type ProviderPayload, type ProviderType, starknetManager } from '@/shared/lib'
 
-const $provider = createStore<ProviderPayload>({
+export const $provider = createStore<ProviderPayload>({
   type: 'sequencer',
   url: constants.NetworkName.SN_MAIN,
 })

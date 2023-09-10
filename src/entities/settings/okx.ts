@@ -2,7 +2,7 @@ import { createStore, sample } from 'effector'
 import { createForm } from 'effector-forms'
 import { persist } from 'effector-storage/local'
 
-const $okxCredentials = createStore({
+export const $credentials = createStore({
   apiKey: '',
   apiSecret: '',
   apiPassphrase: '',
@@ -25,11 +25,11 @@ export const okxCredentialsForm = createForm({
 
 sample({
   clock: okxCredentialsForm.formValidated,
-  target: $okxCredentials,
+  target: $credentials,
 })
 sample({
-  clock: $okxCredentials,
+  clock: $credentials,
   target: okxCredentialsForm.setForm,
 })
 
-persist({ store: $okxCredentials, key: 'okx-credentials' })
+persist({ store: $credentials, key: 'okx-credentials' })
