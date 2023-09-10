@@ -6,6 +6,7 @@ import { RouterView } from './router/router-view'
 import { router } from './router'
 import { TopUpModalDialog } from '@/features/top-up-accounts'
 import { RemoveAccountDialog } from '@/features/remove-account'
+import { AccountsDataModal } from '@/features/export-accounts/ui/data-modal'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -13,9 +14,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <CssBaseline />
       <RouterProvider router={router}>
         <RouterView />
-
         <TopUpModalDialog />
         <RemoveAccountDialog />
+        <AccountsDataModal />
       </RouterProvider>
     </CssVarsProvider>
   </React.StrictMode>,

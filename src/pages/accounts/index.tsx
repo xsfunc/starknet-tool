@@ -1,12 +1,11 @@
-import { Button, Stack, Typography } from '@mui/joy'
-import { useUnit } from 'effector-react'
+import { Stack, Typography } from '@mui/joy'
 
-import { AccountsTable, accountsModel } from '@/entities/accounts'
+import { AccountsTable } from '@/entities/accounts'
 import { AddAccountButton } from '@/features/add-accounts'
 import { AccountAction } from '@/widgets/account-action'
+import { ExportButton } from '@/features/export-accounts'
 
 export function AccountsPage() {
-  const { downloadAccounts } = useUnit(accountsModel)
   return <>
     <Stack
       direction='row'
@@ -19,13 +18,7 @@ export function AccountsPage() {
       </Typography>
 
       <Stack direction='row' gap={1}>
-        <Button
-          size='sm'
-          variant='outlined'
-          color='neutral'
-          onClick={() => downloadAccounts()}>
-          Download
-        </Button>
+        <ExportButton />
         <AddAccountButton />
       </Stack>
     </Stack>

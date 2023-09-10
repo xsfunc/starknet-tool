@@ -1,7 +1,7 @@
 import { createEvent, createStore, sample } from 'effector'
 import { createFactory } from '@withease/factories'
 
-export const createModal = createFactory(<T>() => {
+export const createModal = createFactory(<T = void>() => {
   const closeCalled = createEvent()
   const openCalled = createEvent<T>()
 
