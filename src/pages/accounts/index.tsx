@@ -1,32 +1,33 @@
-import { Button } from '@mui/joy'
-import { useList, useUnit } from 'effector-react'
+import { Button, Stack, Typography } from '@mui/joy'
+import { useUnit } from 'effector-react'
 
-import Box from '@mui/joy/Box'
-import { argentXManager, starknetManager } from '@/shared/lib'
+import { AccountsTable, accountsModel } from '@/entities/accounts'
+import { AddAccountButton } from '@/features/add-accounts'
 
 export function AccountsPage() {
-  const { createAccount } = useUnit(argentXManager)
+  const { downloadAccounts } = useUnit(accountsModel)
   return <>
-    <Button
-      onClick={() => createAccount()}
+    <Stack
+      direction='row'
+      justifyContent='space-between'
+      alignItems='start'
+      sx={{ mb: 2 }}
     >
-      Add account
-    </Button>
-    <AccountList />
+      <Typography level="h1" fontSize="xl2" sx={{ mb: 1 }}>
+        Accounts
+      </Typography>
+
+      <Stack direction='row' gap={1}>
+        <Button
+          size='sm'
+          variant='outlined'
+          color='neutral'
+          onClick={() => downloadAccounts()}>
+          Download
+        </Button>
+        <AddAccountButton />
+      </Stack>
+    </Stack>
+    <AccountsTable />
   </>
-}
-
-export default function AccountList() {
-  // const { accounts } = useUnit(starknetManager)
-  const list = useList(starknetManager.accounts, ({ privateKey, contractAddress }, index) => (
-    <li>
-      [{index}] {contractAddress.slice(0, 5)} {privateKey.slice(0, 5)}
-    </li>
-  ))
-
-  return (
-    <Box sx={{}}>
-      {list}
-    </Box>
-  )
 }
