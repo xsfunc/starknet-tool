@@ -12,8 +12,8 @@ dependencies:
     specifier: ^11.11.0
     version: 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.21)(react@18.2.0)
   '@farfetched/core':
-    specifier: ^0.8.15
-    version: 0.8.15(effector@22.8.6)
+    specifier: ^0.9.0
+    version: 0.9.0(effector@22.8.6)
   '@fontsource/inter':
     specifier: ^5.0.8
     version: 5.0.8
@@ -782,8 +782,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@farfetched/core@0.8.15(effector@22.8.6):
-    resolution: {integrity: sha512-DV7d6ho8hKSWtCSz2jq+5xqmNOXfJJG7pSXth0u4kyxpXg1HHbQYnnjH5rfLzlPBb9Q8W4LBnrWrzvGGTuBn8Q==}
+  /@farfetched/core@0.9.0(effector@22.8.6):
+    resolution: {integrity: sha512-aLnKdH1IFRdSH+I13h8u8ixrIL1piUHwiOl6pWYyez9BN5o/JNMvbYTN3orptoGrE4DYKijT7lb/ZhjcDonEfg==}
     peerDependencies:
       effector: ^22.5.0
     dependencies:
