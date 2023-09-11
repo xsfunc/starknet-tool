@@ -1,5 +1,4 @@
 import { createEffect, createEvent, createStore, sample, split } from 'effector'
-import { debug } from 'patronum'
 import type {
   Credentials,
   LoginProps,
@@ -78,18 +77,6 @@ split({
   },
 })
 
-debug({
-  errorReceived,
-  connected,
-  disconnected,
-  loginCalled,
-  // messageGot,
-  loggedIn,
-  subscribed,
-  unsubscribed,
-  // unsubscribeCalled,
-})
-
 export const ws = {
   connecting: $connecting,
   connect: connectCalled,
@@ -98,12 +85,13 @@ export const ws = {
   unsubscribe: unsubscribeCalled,
   login: loginCalled,
 
+  connected,
+  disconnected,
   messageGot,
   withdrawalMessageGot,
   errorReceived,
   unsubscribed,
   subscribed,
-  connected,
   loggedIn,
 }
 
