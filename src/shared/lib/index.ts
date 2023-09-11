@@ -4,3 +4,4 @@ export * from './starknet/types'
 export * from './modal-factory'
 
 export * from './okx'
+export * from './toast'
