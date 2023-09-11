@@ -2,7 +2,7 @@ import { createEvent, sample } from 'effector'
 import { invoke } from '@withease/factories'
 import { createForm } from 'effector-forms'
 import { settings } from '@/entities/settings'
-import { createModal, okxApi } from '@/shared/lib'
+import { createModal, okx } from '@/shared/lib'
 import type { Withdrawal } from '@/shared/lib/okx/types'
 
 const topUpCalled = createEvent<string>()
@@ -41,7 +41,7 @@ sample({
     chain: 'ETH-StarkNet',
     walletType: 'private',
   }),
-  target: okxApi.mutation.withdraw.start,
+  target: okx.api.withdraw.start,
 })
 
 export const topUpAccount = topUpCalled

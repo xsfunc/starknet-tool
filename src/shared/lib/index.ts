@@ -3,4 +3,4 @@ export * from './starknet/argent-x'
 export * from './starknet/types'
 export * from './modal-factory'
 
-export * from './okx/api'
+export * from './okx'

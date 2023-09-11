@@ -4,7 +4,7 @@ import type { Withdrawal } from './types'
 
 const baseUrl = 'https://www.okx.com'
 
-const withdrawMutation = createMutation({
+export const withdrawMutation = createMutation({
   handler: async ({ credentials, ...body }: Withdrawal) => {
     const endpoint = '/api/v5/asset/withdrawal'
     const { signature, timestamp } = await getSignature({
@@ -37,8 +37,6 @@ const withdrawMutation = createMutation({
   },
 })
 
-export const okxApi = {
-  mutation: {
-    withdraw: withdrawMutation,
-  },
+export const api = {
+  withdraw: withdrawMutation,
 }
