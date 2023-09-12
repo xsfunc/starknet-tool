@@ -1,5 +1,4 @@
-import { Button, Stack, Typography } from '@mui/joy'
-import { wsConnect } from './model'
+import { Stack, Typography } from '@mui/joy'
 import { AccountsTable } from '@/entities/accounts'
 import { AccountAction } from '@/widgets/account-action'
 import { ExportButton } from '@/features/export-accounts'
@@ -18,7 +17,6 @@ export function AccountsPage() {
       </Typography>
 
       <Stack direction='row' gap={1}>
-        <Button size='sm' onClick={() => wsConnect()}>WS</Button>
         <ExportButton />
         <AddAccount />
       </Stack>
