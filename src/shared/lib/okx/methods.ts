@@ -1,3 +1,5 @@
+import type { Credentials } from '.'
+
 interface SignatureProps {
   apiSecret: string
   method: 'GET' | 'POST'
@@ -25,4 +27,28 @@ export async function getSignature({ apiSecret, method, body, endpoint, customTi
       body,
       data,
     }))
+}
+
+export async function authHeaders({ credentials, method, endpoint, body }: {
+  credentials: Credentials
+  method: 'GET' | 'POST'
+  endpoint: string
+  body?: object
+  customTimestamp?: number
+}) {
+  const { signature, timestamp } = await getSignature({
+    apiSecret: credentials.apiSecret,
+    method,
+    endpoint,
+    body,
+  })
+  return {
+    headers: {
+      'OK-ACCESS-KEY': credentials.apiKey,
+      'OK-ACCESS-PASSPHRASE': credentials.apiPassphrase,
+      'OK-ACCESS-SIGN': signature,
+      'OK-ACCESS-TIMESTAMP': timestamp as string,
+      'Content-Type': 'application/json',
+    },
+  }
 }
