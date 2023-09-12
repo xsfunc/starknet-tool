@@ -14,6 +14,9 @@ dependencies:
   '@farfetched/core':
     specifier: ^0.9.0
     version: 0.9.0(effector@22.8.6)
+  '@farfetched/runtypes':
+    specifier: ^0.9.0
+    version: 0.9.0(@farfetched/core@0.9.0)(runtypes@6.7.0)
   '@fontsource/inter':
     specifier: ^5.0.8
     version: 5.0.8
@@ -59,6 +62,9 @@ dependencies:
   react-hot-toast:
     specifier: ^2.4.1
     version: 2.4.1(csstype@3.1.2)(react-dom@18.2.0)(react@18.2.0)
+  runtypes:
+    specifier: ^6.7.0
+    version: 6.7.0
   starknet:
     specifier: ^5.19.5
     version: 5.19.5
@@ -794,6 +800,16 @@ packages:
       effector: ^22.5.0
     dependencies:
       effector: 22.8.6
+    dev: false
+
+  /@farfetched/runtypes@0.9.0(@farfetched/core@0.9.0)(runtypes@6.7.0):
+    resolution: {integrity: sha512-ICMmkKeeI5j8zLD4kiRWZEH3nCUp27aBW/anp362FP2cm8XNLZoAUgyrjIBme/4BnhcVBkc9+e0w9HsquWfdrQ==}
+    peerDependencies:
+      '@farfetched/core': 0.9.0
+      runtypes: ^6.6.0
+    dependencies:
+      '@farfetched/core': 0.9.0(effector@22.8.6)
+      runtypes: 6.7.0
     dev: false
 
   /@floating-ui/core@1.4.1:
@@ -3669,6 +3685,10 @@ packages:
     dependencies:
       queue-microtask: 1.2.3
     dev: true
+
+  /runtypes@6.7.0:
+    resolution: {integrity: sha512-3TLdfFX8YHNFOhwHrSJza6uxVBmBrEjnNQlNXvXCdItS0Pdskfg5vVXUTWIN+Y23QR09jWpSl99UHkA83m4uWA==}
+    dev: false
 
   /scheduler@0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
