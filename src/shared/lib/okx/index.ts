@@ -1,8 +1,8 @@
-import { api } from './api'
+import { rest } from './rest'
 import { ws } from './ws'
 
 export * from './types'
 export const okx = {
-  api,
+  api: rest,
   ws,
 }

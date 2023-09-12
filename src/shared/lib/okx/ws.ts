@@ -6,7 +6,7 @@ import type {
   SubscriptionArg,
   SubscriptionTopic,
 } from './types'
-import { getSignature } from './methods'
+import { getSignature } from './utils'
 
 const connectCalled = createEvent()
 const disconnected = createEvent<CloseEvent>()

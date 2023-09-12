@@ -8,6 +8,8 @@ interface SignatureProps {
   customTimestamp?: number
 }
 
+export const baseUrl = 'https://www.okx.com'
+
 export async function getSignature({ apiSecret, method, body, endpoint, customTimestamp }: SignatureProps) {
   const encoder = new TextEncoder()
   const algorithm = { name: 'HMAC', hash: 'SHA-256' }
