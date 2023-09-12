@@ -1,13 +1,11 @@
 import { Toaster } from 'react-hot-toast'
 
-export function LeftBottomToaster() {
+export function RightBottomToaster() {
   return <Toaster
     reverseOrder
-    position='bottom-left'
+    position='bottom-right'
     toastOptions={{
-      custom: {
-        duration: 2000,
-      },
+      duration: 2000,
     }}
   />
 }

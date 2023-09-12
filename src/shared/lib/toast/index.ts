@@ -4,9 +4,9 @@ import toast from 'react-hot-toast'
 interface Props {
   message: string
   type: 'success' | 'error' | 'custom'
-  options: {
-    duration: number
-    position: 'bottom-right'
+  options?: {
+    duration?: number
+    position?: 'bottom-right'
   }
 }
 
