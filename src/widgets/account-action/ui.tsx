@@ -32,7 +32,7 @@ export function AccountAction({ address }: Props) {
           color='danger'
           onClick={() => openRemoveAccountDialog({ toRemove: address })}
         >
-          Remove
+          Delete
         </MenuItem>
       </Menu>
     </Dropdown>

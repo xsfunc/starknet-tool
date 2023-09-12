@@ -4,7 +4,7 @@ import { accountsModel } from '@/entities/accounts'
 import { argentXManager, createArgentXAccount } from '@/shared/lib'
 import type { RawAccount } from '@/entities/accounts/types'
 
-const addAccountCalled = createEvent()
+const createAccountCalled = createEvent()
 
 export const addAccountsForm = createForm({
   fields: {
@@ -19,23 +19,18 @@ export const addAccountsForm = createForm({
 })
 
 sample({
-  clock: addAccountCalled,
+  clock: createAccountCalled,
   source: argentXManager.accountConfig,
   fn: (config): RawAccount[] => {
     const account = createArgentXAccount(config)
-    return [{ ...account, status: 'created', encrypted: false }]
+    return [{
+      ...account,
+      status: 'created',
+      contractType: 'argent-x',
+      encrypted: false,
+    }]
   },
   target: accountsModel.addAccounts,
 })
-// sample({
-//   clock: addAccountsForm.formValidated,
-//   source: {
-//     argentX: argentXManager,
-//     starknet: starknetManager,
-//     accounts: accountsModel.rawAccounts,
-//   },
-//   fn: (source, params) => ({ ...source, params }),
-//   target: addAccountsFx,
-// })
 
-export const addAccount = addAccountCalled
+export const createAccount = createAccountCalled

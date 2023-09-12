@@ -8,6 +8,7 @@ import { TopUpModalDialog } from '@/features/top-up-accounts'
 import { RemoveAccountDialog } from '@/features/remove-account'
 import { AccountsDataModal } from '@/features/export-accounts/ui/data-modal'
 import { RightBottomToaster } from '@/shared/lib'
+import { ImportAccountModalDialog } from '@/features/import-accounts'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <RouterView />
         <TopUpModalDialog />
         <RemoveAccountDialog />
+        <ImportAccountModalDialog />
         <AccountsDataModal />
         <RightBottomToaster />
       </RouterProvider>
