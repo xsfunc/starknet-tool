@@ -1,6 +1,6 @@
-import { createMutation } from '@farfetched/core'
+import { createMutation, createQuery } from '@farfetched/core'
 import { authHeaders } from './methods'
-import type { Credentials, Withdrawal } from './types'
+import type { BalancesResponse, Credentials, Withdrawal } from './types'
 
 const baseUrl = 'https://www.okx.com'
 
@@ -12,6 +12,7 @@ export const withdrawMutation = createMutation({
       credentials,
       endpoint,
       method,
+      body,
     })
 
     const response = await fetch(
@@ -26,8 +27,8 @@ export const withdrawMutation = createMutation({
   },
 })
 
-export const balancesQuery = createMutation({
-  handler: async (credentials: Credentials) => {
+export const balancesQuery = createQuery({
+  handler: async (credentials: Credentials): Promise<BalancesResponse> => {
     const method = 'GET'
     const endpoint = '/api/v5/asset/balances?ccy=ETH'
     const { headers } = await authHeaders({
