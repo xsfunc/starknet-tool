@@ -4,6 +4,7 @@ import type { AccountAction as Props } from '@/entities/accounts'
 import MenuIcon from '~icons/solar/menu-dots-outline'
 import { topUpModal } from '@/features/top-up-accounts'
 import { removeAccountDialog } from '@/features/remove-account'
+import { deployAccount } from '@/features/deploy-account'
 
 export function AccountAction({ address }: Props) {
   const { open: openTopUpModal } = useUnit(topUpModal)
@@ -23,7 +24,7 @@ export function AccountAction({ address }: Props) {
         <MenuItem onClick={() => openTopUpModal({ address })}>
           Top up balance
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={() => deployAccount(address)}>
           Deploy account contract
         </MenuItem>
         <ListDivider />
