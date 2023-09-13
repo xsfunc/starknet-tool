@@ -7,12 +7,12 @@ import Icons from 'unplugin-icons/vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    react(),
     Icons({
       autoInstall: true,
       compiler: 'jsx',
       jsx: 'react',
     }),
+
     swc.vite({
       jsc: {
         experimental: {
@@ -25,6 +25,8 @@ export default defineConfig({
         },
       },
     }),
+
+    react(),
   ],
 
   resolve: {
@@ -36,4 +38,8 @@ export default defineConfig({
   server: {
     hmr: false,
   },
+
+  build: {
+    target: 'esnext',
+  }
 })
