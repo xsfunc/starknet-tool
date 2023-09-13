@@ -1,6 +1,6 @@
-import { Checkbox, Sheet, Stack } from '@mui/joy'
+import { Checkbox, Sheet, Stack, Typography } from '@mui/joy'
 import Table from '@mui/joy/Table'
-import { useList } from 'effector-react'
+import { useList, useUnit } from 'effector-react'
 import React from 'react'
 import { shortAddress } from './methods'
 import type { AccountAction } from './types'
@@ -12,6 +12,7 @@ interface Props {
 }
 
 export function AccountsTable({ Action }: Props) {
+  const { hasAccounts } = useUnit(accountsModel)
   const list = useList(accountsModel.rawAccounts, ({ contractAddress }) => (
     <tr>
       <td>
@@ -36,6 +37,13 @@ export function AccountsTable({ Action }: Props) {
       </td>
     </tr>
   ))
+
+  if (!hasAccounts)
+    return (
+      <Sheet sx={{ borderRadius: 'md', p: 2 }}>
+        <Typography>Have no accounts.</Typography>
+      </Sheet>
+    )
 
   return (
     <Sheet

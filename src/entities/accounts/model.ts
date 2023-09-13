@@ -6,6 +6,7 @@ import { starknetManager } from '@/shared/lib'
 
 const $accounts = createStore<Account[]>([])
 const $rawAccounts = createStore<RawAccount[]>([])
+const $hasAccounts = $rawAccounts.map(({ length }) => length > 0)
 
 const addAccountsCalled = createEvent<RawAccount[]>()
 
@@ -31,6 +32,7 @@ sample({
 
 export const accountsModel = {
   rawAccounts: $rawAccounts,
+  hasAccounts: $hasAccounts,
   addAccounts: addAccountsCalled,
 }
 
