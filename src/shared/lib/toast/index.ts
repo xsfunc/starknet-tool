@@ -10,7 +10,7 @@ interface Props {
   }
 }
 
-const notified = createEvent<Props>()
+const notifyCalled = createEvent<Props>()
 const notifyFx = createEffect(({
   message,
   type,
@@ -22,9 +22,9 @@ const notifyFx = createEffect(({
 )
 
 sample({
-  clock: notified,
+  clock: notifyCalled,
   target: notifyFx,
 })
 
-export { notified as notify }
+export { notifyCalled as notify }
 export * from './ui'

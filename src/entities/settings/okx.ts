@@ -1,13 +1,14 @@
 import type { StoreValue } from 'effector'
-import { createEvent, createStore, sample } from 'effector'
+import { createEffect, createEvent, createStore, sample } from 'effector'
 import { createForm } from 'effector-forms'
 import { persist } from 'effector-storage/local'
 import { attachOperation } from '@farfetched/core'
-import { notify, okx } from '@/shared/lib'
+import { BalancesResponse, notify, okx } from '@/shared/lib'
 
 type CredentialsStore = StoreValue<typeof $credentials>
 
 const updateCredentialsCalled = createEvent<Partial<CredentialsStore>>()
+const notifyFx = createEffect(createNotification)
 
 export const getBalances = attachOperation(okx.api.balances)
 export const $credentials = createStore({
@@ -46,23 +47,14 @@ sample({
 })
 sample({
   clock: getBalances.finished.success,
-  fn: ({ result }) => {
-    const formatter = new Intl.NumberFormat('en-EN', { maximumSignificantDigits: 4 })
-    const balance = formatter.format(Number(result.data[0].availBal))
-    const message = `Saved. Available balance: ${balance}ETH`
-    return {
-      options: { duration: 3500 },
-      type: 'success',
-      message,
-    } as const
-  },
-  target: notify,
+  source: okxCredentialsForm.formValidated,
+  filter: (_, { result }) => result.code === '0',
+  fn: credentials => ({ ...credentials, isValid: true, encrypted: false }),
+  target: $credentials,
 })
 sample({
   clock: getBalances.finished.success,
-  source: okxCredentialsForm.formValidated,
-  fn: credentials => ({ ...credentials, isValid: true, encrypted: false }),
-  target: $credentials,
+  target: notifyFx,
 })
 sample({
   clock: $credentials,
@@ -70,3 +62,22 @@ sample({
 })
 
 persist({ store: $credentials, key: 'okx-credentials' })
+
+
+function createNotification({ result }: { result: BalancesResponse }) {
+  if (result.code !== '0')
+    return notify({
+      message: 'Incorrect API token',
+      options: { duration: 3500 },
+      type: 'error',
+    })
+
+  const formatter = new Intl.NumberFormat('en-EN', { maximumSignificantDigits: 4 })
+  const balance = formatter.format(Number(result.data[0].availBal))
+  const message = `Saved. Available balance: ${balance}ETH`
+  return notify({
+    options: { duration: 3500 },
+    type: 'success',
+    message,
+  })
+}
