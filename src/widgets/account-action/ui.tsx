@@ -2,13 +2,12 @@ import { Dropdown, IconButton, ListDivider, Menu, MenuButton, MenuItem } from '@
 import { useUnit } from 'effector-react'
 import type { AccountAction as Props } from '@/entities/accounts'
 import MenuIcon from '~icons/solar/menu-dots-outline'
-import { topUpModal } from '@/features/top-up-accounts'
+import { topUpAccount, topUpModal } from '@/features/top-up-accounts'
 import { removeAccountDialog } from '@/features/remove-account'
 import { deployAccount } from '@/features/deploy-account'
 import { upgradeAccount } from '@/features/update-contract'
 
 export function AccountAction({ address }: Props) {
-  const { open: openTopUpModal } = useUnit(topUpModal)
   const { open: openRemoveAccountDialog } = useUnit(removeAccountDialog)
   return (
     <Dropdown>
@@ -22,7 +21,7 @@ export function AccountAction({ address }: Props) {
         size='sm'
         placement='bottom-end'
       >
-        <MenuItem onClick={() => openTopUpModal({ address })}>
+        <MenuItem onClick={() => topUpAccount(address)}>
           Top up balance
         </MenuItem>
         <MenuItem onClick={() => deployAccount(address)}>

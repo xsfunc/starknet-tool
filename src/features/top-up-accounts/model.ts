@@ -1,9 +1,10 @@
-import { createEvent, sample } from 'effector'
+import { createEvent, createStore, sample, split } from 'effector'
 import { invoke } from '@withease/factories'
 import { createForm } from 'effector-forms'
 import { attachOperation } from '@farfetched/core'
 import { settings } from '@/entities/settings'
 import { createModal, notify, okx } from '@/shared/lib'
+import { condition, not } from 'patronum'
 
 const topUpCalled = createEvent<string>()
 const withdraw = attachOperation(okx.api.withdraw)
@@ -25,6 +26,21 @@ export const topUpForm = createForm({
 
 export const topUpModal = invoke(createModal<{ address: string }>)
 
+sample({
+  clock: topUpCalled,
+  filter: settings.okx.isCredentialsValid,
+  fn: address => ({ address }),
+  target: topUpModal.open
+})
+sample({
+  clock: topUpCalled,
+  filter: not(settings.okx.isCredentialsValid),
+  fn: () => ({
+    message: 'Add OKX api token first',
+    type: 'error'
+  } as const),
+  target: notify
+})
 sample({
   clock: topUpModal.opened,
   target: topUpForm.setForm,
