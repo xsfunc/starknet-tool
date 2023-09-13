@@ -3,6 +3,7 @@ import { constants } from 'starknet'
 import { createForm } from 'effector-forms'
 import { persist } from 'effector-storage/local'
 import { type ProviderPayload, type ProviderType, starknetManager } from '@/shared/lib'
+import { routes } from '@/shared/config'
 
 export const $provider = createStore<ProviderPayload>({
   type: 'sequencer',
@@ -27,7 +28,8 @@ sample({
   target: $provider,
 })
 sample({
-  clock: $provider,
+  clock: [$provider, routes.settings.opened],
+  source: $provider,
   target: [
     starknetManager.changeProvider,
     providerForm.setForm,
