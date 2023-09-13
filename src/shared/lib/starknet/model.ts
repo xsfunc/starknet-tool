@@ -1,4 +1,4 @@
-import { createEvent, createStore, sample } from 'effector'
+import { attach, createEffect, createEvent, createStore, sample } from 'effector'
 import { CallData, Provider, constants, ec, hash, stark } from 'starknet'
 import type { AccountData, ProviderPayload } from './types'
 
@@ -8,6 +8,8 @@ const $accounts = createStore<AccountData[]>([])
 
 const addAccountCalled = createEvent<AccountData>()
 const changeProviderCalled = createEvent<ProviderPayload>()
+
+const waitTxFx = createEffect(waitTx)
 
 sample({
   clock: addAccountCalled,
@@ -27,6 +29,12 @@ export const starknetManager = {
   accounts: $accounts,
   addAccount: addAccountCalled,
   changeProvider: changeProviderCalled,
+
+  waitForTx: attach({
+    effect: waitTxFx,
+    source: $provider,
+    mapParams: (tx: string, provider) => ({ provider, tx }),
+  }),
 }
 
 export const starknetUtils = {
@@ -81,4 +89,8 @@ function constructorCallData(classHash: string, publicKey: string) {
     selector: hash.getSelectorFromName('initialize'),
     calldata: CallData.compile({ signer: publicKey, guardian: '0' }),
   })
+}
+
+async function waitTx({ provider, tx }: { provider: Provider; tx: string }) {
+  return provider.waitForTransaction(tx)
 }
