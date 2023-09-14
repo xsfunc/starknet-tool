@@ -2,6 +2,7 @@ import { Checkbox, Sheet, Stack, Typography } from '@mui/joy'
 import Table from '@mui/joy/Table'
 import { useList, useUnit } from 'effector-react'
 import React from 'react'
+import { settings } from '../settings'
 import { shortAddress } from './methods'
 import type { AccountAction } from './types'
 import { accountsModel } from '.'
@@ -13,6 +14,7 @@ interface Props {
 
 export function AccountsTable({ Action }: Props) {
   const { hasAccounts } = useUnit(accountsModel)
+  const { contractLink } = useUnit(settings.explorer)
   const list = useList(accountsModel.rawAccounts, ({ contractAddress }) => (
     <tr>
       <td>
@@ -25,7 +27,7 @@ export function AccountsTable({ Action }: Props) {
           gap={1}
         >
 
-          <OpenLink href={`https://voyager.online/contract/${contractAddress}`} />
+          <OpenLink href={contractLink(contractAddress)} />
           {shortAddress(contractAddress)}
           <CopyButton text={contractAddress} />
         </Stack>
@@ -38,12 +40,13 @@ export function AccountsTable({ Action }: Props) {
     </tr>
   ))
 
-  if (!hasAccounts)
+  if (!hasAccounts) {
     return (
       <Sheet sx={{ borderRadius: 'md', p: 2 }}>
         <Typography>Have no accounts.</Typography>
       </Sheet>
     )
+  }
 
   return (
     <Sheet

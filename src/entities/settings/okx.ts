@@ -3,7 +3,8 @@ import { createEffect, createEvent, createStore, sample } from 'effector'
 import { createForm } from 'effector-forms'
 import { persist } from 'effector-storage/local'
 import { attachOperation } from '@farfetched/core'
-import { BalancesResponse, notify, okx } from '@/shared/lib'
+import type { BalancesResponse } from '@/shared/lib'
+import { notify, okx } from '@/shared/lib'
 
 type CredentialsStore = StoreValue<typeof $credentials>
 
@@ -63,14 +64,14 @@ sample({
 
 persist({ store: $credentials, key: 'okx-credentials' })
 
-
 function createNotification({ result }: { result: BalancesResponse }) {
-  if (result.code !== '0')
+  if (result.code !== '0') {
     return notify({
       message: 'Incorrect API token',
       options: { duration: 3500 },
       type: 'error',
     })
+  }
 
   const formatter = new Intl.NumberFormat('en-EN', { maximumSignificantDigits: 4 })
   const balance = formatter.format(Number(result.data[0].availBal))
