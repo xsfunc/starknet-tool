@@ -2,7 +2,7 @@ import { Dropdown, IconButton, ListDivider, Menu, MenuButton, MenuItem } from '@
 import { useUnit } from 'effector-react'
 import type { AccountAction as Props } from '@/entities/accounts'
 import MenuIcon from '~icons/solar/menu-dots-outline'
-import { topUpAccount, topUpModal } from '@/features/top-up-accounts'
+import { topUpAccount } from '@/features/top-up-accounts'
 import { removeAccountDialog } from '@/features/remove-account'
 import { deployAccount } from '@/features/deploy-account'
 import { upgradeAccount } from '@/features/update-contract'
