@@ -8,7 +8,7 @@ export interface WithdrawalQueryProps {
   dest: InternalTransfer | OnChainWithdrawal
   toAddr: string
   fee: string
-  chain: 'ETH-StarkNet'
+  chain: 'ETH-Starknet'
   walletType: 'private'
 }
 interface WithdrawalResponseData {

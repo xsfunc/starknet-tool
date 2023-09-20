@@ -1,10 +1,10 @@
-import { createEvent, createStore, sample, split } from 'effector'
+import { createEvent, sample } from 'effector'
 import { invoke } from '@withease/factories'
 import { createForm } from 'effector-forms'
 import { attachOperation } from '@farfetched/core'
+import { not } from 'patronum'
 import { settings } from '@/entities/settings'
 import { createModal, notify, okx } from '@/shared/lib'
-import { condition, not } from 'patronum'
 
 const topUpCalled = createEvent<string>()
 const withdraw = attachOperation(okx.api.withdraw)
@@ -30,16 +30,16 @@ sample({
   clock: topUpCalled,
   filter: settings.okx.isCredentialsValid,
   fn: address => ({ address }),
-  target: topUpModal.open
+  target: topUpModal.open,
 })
 sample({
   clock: topUpCalled,
   filter: not(settings.okx.isCredentialsValid),
   fn: () => ({
     message: 'Add OKX api token first',
-    type: 'error'
+    type: 'error',
   } as const),
-  target: notify
+  target: notify,
 })
 sample({
   clock: topUpModal.opened,
@@ -55,7 +55,7 @@ sample({
     amt: amount,
     dest: '4', // onchain
     ccy: 'ETH',
-    chain: 'ETH-StarkNet',
+    chain: 'ETH-Starknet',
     walletType: 'private',
   } as const),
   target: [
