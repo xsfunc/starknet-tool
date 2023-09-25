@@ -15,11 +15,9 @@ const notifyFx = createEffect(({
   message,
   type,
   options,
-}: Props) =>
-  type
-    ? toast[type](message, options)
-    : toast(message, options),
-)
+}: Props) => type
+  ? toast[type](message, options)
+  : toast(message, options))
 
 sample({
   clock: notifyCalled,
