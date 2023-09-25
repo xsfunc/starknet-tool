@@ -5,7 +5,7 @@ export interface RawAccount {
   contractType: 'argent-x' | 'braavos'
   status: 'created' | 'deployed'
   encrypted: boolean
-  ethBalance: number
+  ethBalance?: number
 }
 
 export interface UpdateAccountPayload {
