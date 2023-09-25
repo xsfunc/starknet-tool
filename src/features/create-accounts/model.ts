@@ -1,6 +1,6 @@
 import { createEvent, sample } from 'effector'
 import { createForm } from 'effector-forms'
-import { accountsModel } from '@/entities/accounts'
+import { accountsManager } from '@/entities/accounts'
 import { argentXManager, createArgentXAccount } from '@/shared/lib'
 import type { RawAccount } from '@/entities/accounts/types'
 
@@ -30,7 +30,7 @@ sample({
       encrypted: false,
     }]
   },
-  target: accountsModel.addAccounts,
+  target: accountsManager.addAccounts,
 })
 
 export const createAccount = createAccountCalled

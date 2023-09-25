@@ -2,10 +2,9 @@ import { invoke } from '@withease/factories'
 import { createForm } from 'effector-forms'
 import { createEffect, sample } from 'effector'
 import { createModal, notify, starknetUtils } from '@/shared/lib'
-import { accountsModel } from '@/entities/accounts'
+import { accountsManager } from '@/entities/accounts'
 
-const importAccountsFx = createEffect(({ privateKeys }: { privateKeys: string[] }) =>
-  privateKeys.map(privateKey => starknetUtils.createAccount({ privateKey })))
+const importAccountsFx = createEffect(({ privateKeys }: { privateKeys: string[] }) => privateKeys.map(privateKey => starknetUtils.createAccount({ privateKey })))
 
 const form = createForm({
   fields: {
@@ -34,7 +33,7 @@ sample({
     status: 'created',
     contractType: 'argent-x',
   }) as const),
-  target: accountsModel.addAccounts,
+  target: accountsManager.addAccounts,
 })
 
 sample({

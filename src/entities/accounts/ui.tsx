@@ -5,7 +5,7 @@ import React from 'react'
 import { settings } from '../settings'
 import { shortAddress } from './methods'
 import type { AccountAction } from './types'
-import { accountsModel } from '.'
+import { accountsManager } from '.'
 import { CopyButton, OpenLink } from '@/shared/ui'
 
 interface Props {
@@ -13,9 +13,9 @@ interface Props {
 }
 
 export function AccountsTable({ Action }: Props) {
-  const { hasAccounts } = useUnit(accountsModel)
+  const { hasAccounts } = useUnit(accountsManager)
   const { contractLink } = useUnit(settings.explorer)
-  const list = useList(accountsModel.rawAccounts, ({ contractAddress }) => (
+  const list = useList(accountsManager.rawAccounts, ({ contractAddress, ethBalance }) => (
     <tr>
       <td>
         <Checkbox size='sm' />
@@ -26,13 +26,13 @@ export function AccountsTable({ Action }: Props) {
           alignItems='center'
           gap={1}
         >
-
           <OpenLink href={contractLink(contractAddress)} />
           {shortAddress(contractAddress)}
           <CopyButton text={contractAddress} />
         </Stack>
       </td>
       <td>created</td>
+      <td>{ethBalance}ETH</td>
       <td>?</td>
       <td>
         <Action address={contractAddress} />
@@ -66,6 +66,7 @@ export function AccountsTable({ Action }: Props) {
             </th>
             <th style={{ width: '40%' }}>Contract Address</th>
             <th>Status</th>
+            <th>Balance</th>
             <th>Deployed at</th>
             <th>Action</th>
           </tr>

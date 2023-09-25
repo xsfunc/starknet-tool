@@ -3,7 +3,7 @@ import type { Provider } from 'starknet'
 import { Account, Contract, num } from 'starknet'
 import { notify, starknetManager } from '@/shared/lib'
 import type { RawAccount } from '@/entities/accounts'
-import { accountsModel } from '@/entities/accounts'
+import { accountsManager } from '@/entities/accounts'
 
 const upgradeArgentAccountFx = createEffect(updateArgentAccount)
 const upgradeAccountContractCalled = createEvent<string>()
@@ -12,7 +12,7 @@ sample({
   clock: upgradeAccountContractCalled,
   source: {
     provider: starknetManager.provider,
-    accounts: accountsModel.rawAccounts,
+    accounts: accountsManager.rawAccounts,
   },
   fn: ({ provider, accounts }, contractAddress) => {
     const account = accounts.find(acc => acc.contractAddress === contractAddress) as RawAccount

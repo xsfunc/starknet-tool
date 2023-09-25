@@ -4,7 +4,7 @@ import { Account, CallData, ec, hash } from 'starknet'
 import { debug } from 'patronum'
 import { notify, starknetManager } from '@/shared/lib'
 import type { RawAccount } from '@/entities/accounts'
-import { accountsModel } from '@/entities/accounts'
+import { accountsManager } from '@/entities/accounts'
 
 const deployCalled = createEvent<string>()
 const deployAccountFx = createEffect(deployAcc)
@@ -13,7 +13,7 @@ sample({
   clock: deployCalled,
   source: {
     provider: starknetManager.provider,
-    accounts: accountsModel.rawAccounts,
+    accounts: accountsManager.rawAccounts,
   },
   fn: ({ provider, accounts }, address) => {
     const { privateKey } = accounts.find(acc => acc.contractAddress === address) as RawAccount

@@ -1,4 +1,5 @@
 export { shortAddress } from './methods'
 export * from './model'
+export * from './with-account'
 export * from './ui'
 export * from './types'

@@ -6,8 +6,11 @@ import { topUpAccount } from '@/features/top-up-accounts'
 import { removeAccountDialog } from '@/features/remove-account'
 import { deployAccount } from '@/features/deploy-account'
 import { upgradeAccount } from '@/features/update-contract'
+import { getAccountBalance } from '@/features/get-account-balance'
+import { erc20Tokens } from '@/shared/config'
 
 export function AccountAction({ address }: Props) {
+  const getBalance = useUnit(getAccountBalance)
   const { open: openRemoveAccountDialog } = useUnit(removeAccountDialog)
   return (
     <Dropdown>
@@ -29,6 +32,12 @@ export function AccountAction({ address }: Props) {
         </MenuItem>
         <MenuItem onClick={() => upgradeAccount(address)}>
           Upgrade account contract
+        </MenuItem>
+        <MenuItem onClick={() => getBalance({
+          accountAddress: address,
+          ...erc20Tokens.eth,
+        })}>
+          Get ETH balance
         </MenuItem>
         <ListDivider />
         <MenuItem

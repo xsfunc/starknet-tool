@@ -5,10 +5,10 @@ import Sheet from '@mui/joy/Sheet'
 import { useUnit } from 'effector-react'
 import { Textarea } from '@mui/joy'
 import { accountsDataModal } from '../model'
-import { accountsModel } from '@/entities/accounts'
+import { accountsManager } from '@/entities/accounts'
 
 export function AccountsDataModal() {
-  const { rawAccounts } = useUnit(accountsModel)
+  const { rawAccounts } = useUnit(accountsManager)
   const { isOpen, close } = useUnit(accountsDataModal)
   const addresses = rawAccounts
     .map(acc => acc.contractAddress)
