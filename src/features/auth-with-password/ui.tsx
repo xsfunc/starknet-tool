@@ -4,6 +4,7 @@ import type { FormEvent } from 'react'
 import { useUnit } from 'effector-react'
 import { authWithPasswordForm, logout } from '.'
 import LockIcon from '~icons/solar/lock-keyhole-minimalistic-unlocked-bold'
+import { settings } from '@/entities/settings'
 
 export function AuthWithPasswordForm() {
   const { fields, submit } = useForm(authWithPasswordForm)
@@ -50,6 +51,11 @@ export function AuthWithPasswordForm() {
 
 export function LockButton() {
   const lock = useUnit(logout)
+  const { usePassword } = useUnit(settings.security)
+
+  if (!usePassword)
+    return null
+
   return (
     <IconButton
       onClick={() => lock()}
