@@ -1,7 +1,8 @@
 const encryptAlgo = { name: 'AES-GCM', length: 256 }
 const deriveAlgo = { name: 'PBKDF2', iterations: 250000, hash: 'SHA-256' }
 
-export async function encryptWithPassword(password: string, data: string) {
+type EncryptPayload = { password: string, data: string }
+export async function encryptWithPassword({ password, data }: EncryptPayload) {
   const encoder = new TextEncoder()
   const key = await keyFromPassword(password)
   const iv = crypto.getRandomValues(new Uint8Array(12))
@@ -53,7 +54,7 @@ async function keyFromPassword(password: string) {
 }
 
 function bufferToBase64(buffer: ArrayBuffer) {
-  btoa(String.fromCharCode(...new Uint8Array(buffer)))
+  return btoa(String.fromCharCode(...new Uint8Array(buffer)))
 }
 
 function base64ToUint8Array(data: string) {

@@ -1,6 +1,6 @@
 import { createEvent, createStore, sample } from 'effector'
 import { persist } from 'effector-storage/local'
-import { Seed } from './types'
+import type { Seed } from './types'
 
 const addSeedCalled = createEvent<Seed[]>()
 const removeSeedCalled = createEvent<string>()

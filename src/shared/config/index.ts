@@ -1,4 +1,5 @@
-import { createRoute } from 'atomic-router'
+export * from './routes'
+export * from './init'
 
 export const constants = {
   main: {
@@ -9,14 +10,7 @@ export const constants = {
   },
 }
 
-export const routes = {
-  home: createRoute(),
-  settings: createRoute(),
-  accounts: createRoute(),
-}
-
-
-export type ERC20 = { contractAddress: string, decimals?: number, symbol: string }
+export interface ERC20 { contractAddress: string; decimals?: number; symbol: string }
 export type ERC20Tokens = Record<string, ERC20>
 export const erc20Tokens: ERC20Tokens = {
   eth: {
@@ -26,7 +20,7 @@ export const erc20Tokens: ERC20Tokens = {
   },
   usdc: {
     contractAddress: '0x053C91253BC9682c04929cA02ED00b3E423f6710D2ee7e0D5EBB06F3eCF368A8',
-    symbol: 'usdc'
+    symbol: 'usdc',
   },
   usdt: {
     symbol: 'usdt',
@@ -35,5 +29,5 @@ export const erc20Tokens: ERC20Tokens = {
   dai: {
     symbol: 'dai',
     contractAddress: '0x00dA114221cb83fa859DBdb4C44bEeaa0BB37C7537ad5ae66Fe5e0efD20E6eB3',
-  }
+  },
 } as const

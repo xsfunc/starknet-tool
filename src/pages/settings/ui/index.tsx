@@ -1,7 +1,7 @@
 import { Box, Divider, Typography } from '@mui/joy'
 import { OkxSection } from './okx-section'
 import { StarknetProviderSection } from './provider-section'
-import { ExplorerSection } from '@/entities/settings'
+import { ExplorerSection, PasswordSection } from '@/entities/settings'
 
 export function SettingsPage() {
   return (
@@ -18,10 +18,12 @@ export function SettingsPage() {
       </Typography>
 
       <StarknetProviderSection />
-      <Divider sx={{ my: 2 }} />
-      <OkxSection />
-      <Divider sx={{ my: 2 }} />
+      <Divider sx={{ my: 3 }} />
       <ExplorerSection />
+      <Divider sx={{ my: 3 }} />
+      <OkxSection />
+      <Divider sx={{ my: 3 }} />
+      <PasswordSection />
     </Box>
   )
 }

@@ -17,7 +17,7 @@ export const createModal = createFactory(<T = void>() => {
   }
 })
 
-export const createModalDialog = createFactory(<T>() => {
+export const createModalDialog = createFactory(<T = void>() => {
   const submitCalled = createEvent()
   const closeCalled = createEvent()
   const openCalled = createEvent<T>()

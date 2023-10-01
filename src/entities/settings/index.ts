@@ -1,14 +1,19 @@
-import { explorer } from './explorer'
-import { $credentials, getBalances } from './okx'
-import { $provider } from './starknet-provider'
+import { explorer } from './model/explorer'
+import { $credentials, getBalances } from './model/okx'
+import { $provider } from './model/starknet-provider'
+import { passwordSettings } from '.'
 
-export * from './password'
-export * from './starknet-provider'
-export * from './okx'
+export * from './model/password'
+export * from './model/starknet-provider'
+export * from './model/okx'
+
 export * from './ui/explorer-section'
+export * from './ui/password-section'
+export * from './ui/erase-password-dialog'
 
 export const settings = {
   explorer,
+  security: passwordSettings,
   starknetProvider: $provider,
   okx: {
     isCredentialsValid: $credentials.map(({ isValid }) => isValid),

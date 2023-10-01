@@ -15,8 +15,7 @@ interface Props {
 export function AccountsTable({ Action }: Props) {
   const { hasAccounts } = useUnit(accountsManager)
   const { contractLink } = useUnit(settings.explorer)
-  const list = useList(accountsManager.rawAccounts, ({ contractAddress, ethBalance }) => (
-    <tr>
+  const list = useList(accountsManager.rawAccounts, ({ contractAddress, ethBalance }) => (<tr>
       <td>
         <Checkbox size='sm' />
       </td>

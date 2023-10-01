@@ -1,10 +1,10 @@
-import erc20Json from './erc20.json'
 import { createEffect, createEvent, sample } from 'effector'
 import { Contract, uint256 } from 'starknet'
-import { accountsManager, withAccount } from '@/entities/accounts'
-import { format } from "dnum";
-import { ERC20 } from '@/shared/config'
+import { format } from 'dnum'
 import type { Account, Provider } from 'starknet'
+import erc20Json from './erc20.json'
+import type { ERC20 } from '@/shared/config'
+import { accountsManager, withAccount } from '@/entities/accounts'
 
 type GetBalancePayload = ERC20 & { accountAddress: string }
 

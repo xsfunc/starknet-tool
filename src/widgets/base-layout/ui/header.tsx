@@ -3,9 +3,12 @@ import React from 'react'
 import { useUnit } from 'effector-react'
 import { PagesMenu } from './pages-menu'
 import { routes } from '@/shared/config'
+import { LockButton } from '@/features/auth-with-password'
+import { session } from '@/shared/session'
 
 export function Header() {
   const openHome = useUnit(routes.home.open)
+  const { isAuthorized } = useUnit(session)
   return (
     <HeaderContainer>
       <Stack
@@ -38,9 +41,12 @@ export function Header() {
         alignItems='center'
         spacing={1}
       >
-        {/* <ThemeButton /> */}
-        {/* <SignerButton /> */}
-        <PagesMenu />
+        {isAuthorized
+          && <>
+            <LockButton />
+            <PagesMenu />
+          </>
+        }
       </Stack>
     </HeaderContainer>
   )

@@ -8,7 +8,7 @@ interface Props {
 export function Main({ children }: Props) {
   return (
     <Container
-      maxWidth={'lg'}
+      maxWidth='lg'
       component='main'
       sx={{ flexGrow: 1 }}
     >

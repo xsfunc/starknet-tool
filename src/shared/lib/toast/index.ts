@@ -1,21 +1,21 @@
 import { createEffect, createEvent, sample } from 'effector'
 import toast from 'react-hot-toast'
 
-interface Props {
+interface NotificationProps {
   message: string
-  type: 'success' | 'error' | 'custom'
+  type?: 'success' | 'error' | 'custom'
   options?: {
     duration?: number
     position?: 'bottom-right'
   }
 }
 
-const notifyCalled = createEvent<Props>()
+const notifyCalled = createEvent<NotificationProps>()
 const notifyFx = createEffect(({
   message,
   type,
   options,
-}: Props) => type
+}: NotificationProps) => type
   ? toast[type](message, options)
   : toast(message, options))
 

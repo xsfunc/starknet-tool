@@ -2,6 +2,8 @@ import { createEvent, sample } from 'effector'
 import type { SubscriptionArg } from '@/shared/lib'
 import { okx } from '@/shared/lib'
 import { settings } from '@/entities/settings'
+import { routes } from '@/shared/config'
+import { chainAuthorized } from '@/shared/session'
 
 export const wsConnect = createEvent()
 
@@ -25,3 +27,9 @@ sample({
 //   fn: (): SubscriptionTopic[] => ([{ channel: 'withdrawal-info' }]),
 //   target: okx.ws.unsubscribe,
 // })
+
+export const authorizedAccountsRoute = chainAuthorized({
+  route: routes.accounts,
+  redirectLoginRoute: routes.password,
+  authRequired: settings.security.usePassword,
+})
