@@ -1,7 +1,11 @@
 const encryptAlgo = { name: 'AES-GCM', length: 256 }
 const deriveAlgo = { name: 'PBKDF2', iterations: 250000, hash: 'SHA-256' }
 
-interface EncryptPayload { password: string; data: string }
+interface EncryptPayload {
+  password: string
+  data: string
+}
+
 export async function encryptWithPassword({ password, data }: EncryptPayload) {
   const encoder = new TextEncoder()
   const key = await keyFromPassword(password)
