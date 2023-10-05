@@ -1,5 +1,7 @@
 import { attach, createEffect, createEvent, createStore, sample } from 'effector'
 import { CallData, Provider, constants, ec, hash, stark } from 'starknet'
+import { createAccountWithPK } from './create-argent-account-pk'
+import { createAccountsWithSeed } from './create-argent-account-seed'
 import type { AccountData, ProviderPayload } from './types'
 
 const $provider = createStore(getProvider())
@@ -39,6 +41,8 @@ export const starknetManager = {
 
 export const starknetUtils = {
   createAccount,
+  createAccountWithPK,
+  createAccountsWithSeed,
 }
 
 function getProvider(payload?: ProviderPayload): Provider {

@@ -1,31 +1,62 @@
-import { Dropdown, Menu, MenuButton, MenuItem } from '@mui/joy'
+import { Button, IconButton, Modal, ModalDialog, Stack, Typography } from '@mui/joy'
 import { useUnit } from 'effector-react'
-import { importAccounts } from '@/features/import-accounts'
+import { addAccountModal } from './model'
 import { createAccount } from '@/features/create-accounts'
+import { importAccounts } from '@/features/import-accounts'
+import { seedPhraseDialog } from '@/features/add-seed'
+import AddWalletIcon from '~icons/solar/add-square-bold'
 
-export function AddAccount() {
-  const { open: openImportDialog } = useUnit(importAccounts.dialog)
-  const createArgentXAccount = useUnit(createAccount)
+export function AddAccountButton() {
+  const { open: openMenu } = useUnit(addAccountModal)
   return (
-    <Dropdown>
-      <MenuButton
-        size='sm'
-        variant='solid'
-        color='primary'
+    <IconButton onClick={openMenu} variant='solid' size='sm' color='primary'>
+      <AddWalletIcon />
+    </IconButton>
+  )
+}
+
+export function AddAccountDialog() {
+  const { isOpen, close } = useUnit(addAccountModal)
+  const { open: openImportDialog } = useUnit(importAccounts.dialog)
+  const { open: openSeedDialog } = useUnit(seedPhraseDialog)
+  const createAcc = useUnit(createAccount)
+
+  function closeAndCreateBySeed() {
+    close()
+    openSeedDialog()
+  }
+  function closeAndCreateByPK() {
+    close()
+    createAcc()
+  }
+  function openImportDialogAndClose() {
+    close()
+    openImportDialog()
+  }
+
+  return (
+    <Modal open={isOpen} onClose={close}>
+      <ModalDialog
+        aria-labelledby="basic-modal-dialog-title"
+        aria-describedby="basic-modal-dialog-description"
+        sx={{ maxWidth: 500 }}
       >
-        Add accounts
-      </MenuButton>
-      <Menu
-        size='sm'
-        placement='bottom-end'
-      >
-        <MenuItem onClick={() => createArgentXAccount()}>
-          Create ArgentX account
-        </MenuItem>
-        <MenuItem onClick={() => openImportDialog()}>
-          Import accounts
-        </MenuItem>
-      </Menu>
-    </Dropdown>
+        <Typography level="h4">
+          Add accounts
+        </Typography>
+
+        <Stack spacing={1} >
+          <Button onClick={closeAndCreateBySeed} variant="outlined">
+            With new seed phrase
+          </Button>
+          <Button onClick={closeAndCreateByPK} variant="outlined">
+            Generate private key
+          </Button>
+          <Button onClick={openImportDialogAndClose} variant="outlined">
+            Import private keys
+          </Button>
+        </Stack>
+      </ModalDialog>
+    </Modal>
   )
 }

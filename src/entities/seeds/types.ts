@@ -1,5 +1,13 @@
-export interface Seed {
+export type Seed = BaseSeed | EncryptedSeed
+
+interface BaseSeed {
+  uuid: string
   mnemonic: string
-  index: number
-  path: string
+  HDPath: string
+  HDPathOffset: number
+}
+
+interface EncryptedSeed extends BaseSeed {
+  encrypted: true
+  iv: string
 }

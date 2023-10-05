@@ -1,30 +1,34 @@
+import type { EventPayload } from 'effector'
 import { createEvent, createStore, sample } from 'effector'
 import { Account } from 'starknet'
 import { persist } from 'effector-storage/local'
-import type { RawAccount, UpdateAccountPayload } from './types'
-import { starknetManager } from '@/shared/lib'
+import type { AccountData, UpdateAccountPayload } from './types'
+import { notify, starknetManager } from '@/shared/lib'
 
 const $accounts = createStore<Account[]>([])
-const $rawAccounts = createStore<RawAccount[]>([])
+const $rawAccounts = createStore<AccountData[]>([])
 const $hasAccounts = $rawAccounts.map(({ length }) => length > 0)
 
 const updateAccountCalled = createEvent<UpdateAccountPayload>()
-const addAccountsCalled = createEvent<RawAccount[]>()
+const addAccountsCalled = createEvent<AccountData[]>()
 
 sample({
   clock: addAccountsCalled,
   source: $rawAccounts,
   fn: (accounts, newAccounts) => [...newAccounts, ...accounts],
-  target: $rawAccounts,
+  target: [
+    notify.prepend(accountsAddedMessage),
+    $rawAccounts,
+  ],
 })
 sample({
   clock: updateAccountCalled,
   source: $rawAccounts,
-  fn: (accounts, { contractAddress, payload }) => accounts.map((account) => {
-    if (account.contractAddress === contractAddress)
-      return { ...account, ...payload }
-    return account
-  }),
+  fn: (accounts, { contractAddress, payload }) => accounts.map(
+    account => (account.contractAddress === contractAddress)
+      ? ({ ...account, ...payload })
+      : account,
+  ),
   target: $rawAccounts,
 })
 
@@ -52,3 +56,7 @@ export const accountsManager = {
 }
 
 persist({ store: $rawAccounts, key: 'starknet-accounts' })
+
+function accountsAddedMessage(): EventPayload<typeof notify> {
+  return { message: 'Accounts added.', type: 'success' }
+}

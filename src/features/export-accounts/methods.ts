@@ -1,6 +1,6 @@
-import type { RawAccount } from '@/entities/accounts'
+import type { AccountData } from '@/entities/accounts'
 
-export function downloadAccounts({ accounts }: { accounts: RawAccount[] }) {
+export function downloadAccounts({ accounts }: { accounts: AccountData[] }) {
   const accountsRows = accounts.map(acc => [
     acc.contractAddress,
     acc.privateKey,

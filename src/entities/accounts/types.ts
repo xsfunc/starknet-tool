@@ -1,16 +1,26 @@
-export interface RawAccount {
+export type AccountData = BaseAccountData | EncryptedAccountData
+
+export interface BaseAccountData {
   privateKey: string
   publicKey: string
   contractAddress: string
   contractType: 'argent-x' | 'braavos'
-  status: 'created' | 'deployed'
-  encrypted: boolean
+  cairoVersion?: 0 | 1 | 2
+  note?: string
   ethBalance?: number
+  source: 'seed' | 'pk'
+  sourceUuid?: string
+  HDPathIndex?: number
+}
+
+interface EncryptedAccountData extends BaseAccountData {
+  iv: string
+  encrypted: true
 }
 
 export interface UpdateAccountPayload {
   contractAddress: string
-  payload: Partial<RawAccount>
+  payload: Partial<AccountData>
 }
 
 export interface AccountAction {

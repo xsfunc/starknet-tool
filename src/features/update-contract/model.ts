@@ -2,7 +2,7 @@ import { createEffect, createEvent, sample } from 'effector'
 import type { Provider } from 'starknet'
 import { Account, Contract, num } from 'starknet'
 import { notify, starknetManager } from '@/shared/lib'
-import type { RawAccount } from '@/entities/accounts'
+import type { AccountData } from '@/entities/accounts'
 import { accountsManager } from '@/entities/accounts'
 
 const upgradeArgentAccountFx = createEffect(updateArgentAccount)
@@ -15,7 +15,7 @@ sample({
     accounts: accountsManager.rawAccounts,
   },
   fn: ({ provider, accounts }, contractAddress) => {
-    const account = accounts.find(acc => acc.contractAddress === contractAddress) as RawAccount
+    const account = accounts.find(acc => acc.contractAddress === contractAddress) as AccountData
     return { provider, ...account }
   },
   target: upgradeArgentAccountFx,

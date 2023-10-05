@@ -3,7 +3,7 @@ import type { Provider } from 'starknet'
 import { Account, CallData, ec, hash } from 'starknet'
 import { debug } from 'patronum'
 import { notify, starknetManager } from '@/shared/lib'
-import type { RawAccount } from '@/entities/accounts'
+import type { AccountData } from '@/entities/accounts'
 import { accountsManager } from '@/entities/accounts'
 
 const deployCalled = createEvent<string>()
@@ -16,7 +16,7 @@ sample({
     accounts: accountsManager.rawAccounts,
   },
   fn: ({ provider, accounts }, address) => {
-    const { privateKey } = accounts.find(acc => acc.contractAddress === address) as RawAccount
+    const { privateKey } = accounts.find(acc => acc.contractAddress === address) as AccountData
     return { privateKey, provider }
   },
   target: deployAccountFx,

@@ -7,6 +7,7 @@ export const routes = {
   home: createRoute(),
   settings: createRoute(),
   accounts: createRoute(),
+  seeds: createRoute(),
   password: createRoute(),
 }
 
@@ -15,6 +16,7 @@ export const router = createHistoryRouter({
     { path: '/', route: routes.accounts },
     { path: '/settings', route: routes.settings },
     { path: '/accounts', route: routes.accounts },
+    { path: '/seeds', route: routes.seeds },
     { path: '/password', route: routes.password },
   ],
 })

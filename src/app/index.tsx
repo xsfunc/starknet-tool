@@ -10,6 +10,9 @@ import { ImportAccountModalDialog } from '@/features/import-accounts'
 import { appStarted, router } from '@/shared/config'
 import { PagesView } from '@/pages'
 import { ErasePasswordDialog } from '@/entities/settings'
+import { AddAccountDialog } from '@/widgets/add-account/ui'
+import { AddSeedDialog } from '@/features/add-seed'
+import { RemoveSeedDialog } from '@/features/remove-seed'
 
 appStarted()
 
@@ -18,12 +21,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <CssVarsProvider defaultMode='dark'>
       <CssBaseline />
       <RouterProvider router={router}>
-        <PagesView />
         <TopUpModalDialog />
+        <AddSeedDialog/>
+        <RemoveSeedDialog />
+        <AddAccountDialog />
         <RemoveAccountDialog />
         <ErasePasswordDialog />
         <ImportAccountModalDialog />
         <AccountsDataModal />
+
+        <PagesView />
         <RightBottomToaster />
       </RouterProvider>
     </CssVarsProvider>

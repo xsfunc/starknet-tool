@@ -4,6 +4,7 @@ import { routes } from '@/shared/config'
 
 export function PagesMenu() {
   const openAccounts = useUnit(routes.accounts.open)
+  const openSeeds = useUnit(routes.seeds.open)
   const openSettings = useUnit(routes.settings.open)
 
   return <Dropdown>
@@ -19,6 +20,9 @@ export function PagesMenu() {
     >
       <MenuItem onClick={() => openAccounts()}>
         Accounts
+      </MenuItem>
+      <MenuItem onClick={() => openSeeds()}>
+        Seeds
       </MenuItem>
       <Divider />
       <MenuItem onClick={() => openSettings()}>

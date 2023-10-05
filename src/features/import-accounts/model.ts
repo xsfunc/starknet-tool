@@ -1,10 +1,11 @@
 import { invoke } from '@withease/factories'
 import { createForm } from 'effector-forms'
 import { createEffect, sample } from 'effector'
-import { createModal, notify, starknetUtils } from '@/shared/lib'
+import { type Provider } from 'starknet'
+import { createModal, notify, starknetManager, starknetUtils } from '@/shared/lib'
 import { accountsManager } from '@/entities/accounts'
 
-const importAccountsFx = createEffect(({ privateKeys }: { privateKeys: string[] }) => privateKeys.map(privateKey => starknetUtils.createAccount({ privateKey })))
+const importAccountsFx = createEffect(importAccountsByPK)
 
 const form = createForm({
   fields: {
@@ -21,8 +22,15 @@ const dialog = invoke(createModal<void>)
 
 sample({
   clock: form.formValidated,
-  fn: ({ privateKeys }) => ({ privateKeys: privateKeys.trim().split('\n') }),
-  target: [importAccountsFx, dialog.close],
+  source: starknetManager.provider,
+  fn: (provider, { privateKeys }) => ({
+    privateKeys: privateKeys.trim().split('\n'),
+    provider,
+  }),
+  target: [
+    dialog.close,
+    importAccountsFx,
+  ],
 })
 
 sample({
@@ -48,4 +56,21 @@ sample({
 export const importAccounts = {
   dialog,
   form,
+}
+
+interface ImportAccountsProps {
+  privateKeys: string[]
+  provider: Provider
+}
+
+async function importAccountsByPK({
+  privateKeys,
+  provider,
+}: ImportAccountsProps) {
+  const accounts = []
+  for await (const privateKey of privateKeys) {
+    const account = await starknetUtils.createAccountWithPK({ find: true, provider, privateKey })
+    accounts.push(account)
+  }
+  return accounts
 }

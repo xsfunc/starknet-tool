@@ -2,7 +2,7 @@ import { Stack, Typography } from '@mui/joy'
 import { AccountsTable } from '@/entities/accounts'
 import { AccountAction } from '@/widgets/account-action'
 import { ExportButton } from '@/features/export-accounts'
-import { AddAccount } from '@/widgets/add-account/ui'
+import { AddAccountButton } from '@/widgets/add-account/ui'
 
 export function AccountsPage() {
   return <>
@@ -18,7 +18,7 @@ export function AccountsPage() {
 
       <Stack direction='row' gap={1}>
         <ExportButton />
-        <AddAccount />
+        <AddAccountButton />
       </Stack>
     </Stack>
 
