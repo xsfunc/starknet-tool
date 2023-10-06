@@ -2,23 +2,13 @@ import { attach, createEffect, createEvent, createStore, sample } from 'effector
 import { CallData, Provider, constants, ec, hash, stark } from 'starknet'
 import { createAccountWithPK } from './create-argent-account-pk'
 import { createAccountsWithSeed } from './create-argent-account-seed'
-import type { AccountData, ProviderPayload } from './types'
+import type { ProviderPayload } from './types'
 
 const $provider = createStore(getProvider())
-const $privateKeys = createStore<string[]>([])
-const $accounts = createStore<AccountData[]>([])
-
-const addAccountCalled = createEvent<AccountData>()
 const changeProviderCalled = createEvent<ProviderPayload>()
 
 const waitTxFx = createEffect(waitTx)
 
-sample({
-  clock: addAccountCalled,
-  source: $accounts,
-  fn: (accounts, account) => [...accounts, account],
-  target: $accounts,
-})
 sample({
   clock: changeProviderCalled,
   fn: getProvider,
@@ -27,9 +17,6 @@ sample({
 
 export const starknetManager = {
   provider: $provider,
-  privateKeys: $privateKeys,
-  accounts: $accounts,
-  addAccount: addAccountCalled,
   changeProvider: changeProviderCalled,
 
   waitForTx: attach({

@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, FormLabel, Input, Typography } from '@mui/joy'
 import { useForm } from 'effector-forms'
-import { addAccountsForm, createAccount } from './model'
+import { addAccount, addAccountsForm } from './model'
 
 export function AddAccounts() {
   const { fields, submit } = useForm(addAccountsForm)
@@ -38,10 +38,12 @@ export function AddAccounts() {
 }
 
 export function AddAccountButton() {
-  return <Button
-    size='sm'
-    onClick={() => createAccount()}
-  >
-    Add account
-  </Button>
+  return (
+    <Button
+      onClick={() => addAccount()}
+      size='sm'
+    >
+      Add account
+    </Button>
+  )
 }

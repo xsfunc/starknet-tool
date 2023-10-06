@@ -2,7 +2,7 @@ import { useList, useUnit } from 'effector-react'
 import { Sheet, Stack, Table, Typography } from '@mui/joy'
 import { seedsManager, shortMnemonic } from '@/entities/seeds'
 import { CopyButton } from '@/shared/ui'
-import { AddAccountButton } from '@/features/add-account-by-seed'
+import { AddAccountButton } from '@/features/add-accounts-by-seed'
 import { RemoveSeedButton } from '@/features/remove-seed'
 
 export function SeedsTable() {

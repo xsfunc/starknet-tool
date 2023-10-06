@@ -53,6 +53,7 @@ export const accountsManager = {
   hasAccounts: $hasAccounts,
   addAccounts: addAccountsCalled,
   updateAccount: updateAccountCalled,
+  addAccount: addAccountsCalled.prepend((account: AccountData) => [account]),
 }
 
 persist({ store: $rawAccounts, key: 'starknet-accounts' })

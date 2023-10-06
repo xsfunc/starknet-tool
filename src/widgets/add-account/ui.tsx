@@ -1,7 +1,7 @@
 import { Button, IconButton, Modal, ModalDialog, Stack, Typography } from '@mui/joy'
 import { useUnit } from 'effector-react'
 import { addAccountModal } from './model'
-import { createAccount } from '@/features/create-accounts'
+import { addAccount } from '@/features/add-accounts-by-pk'
 import { importAccounts } from '@/features/import-accounts'
 import { seedPhraseDialog } from '@/features/add-seed'
 import AddWalletIcon from '~icons/solar/add-square-bold'
@@ -19,7 +19,7 @@ export function AddAccountDialog() {
   const { isOpen, close } = useUnit(addAccountModal)
   const { open: openImportDialog } = useUnit(importAccounts.dialog)
   const { open: openSeedDialog } = useUnit(seedPhraseDialog)
-  const createAcc = useUnit(createAccount)
+  const createAcc = useUnit(addAccount)
 
   function closeAndCreateBySeed() {
     close()
