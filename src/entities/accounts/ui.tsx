@@ -1,12 +1,12 @@
-import { Checkbox, Sheet, Stack, Typography } from '@mui/joy'
-import Table from '@mui/joy/Table'
+import { Checkbox, Sheet, Stack, Table, Typography } from '@mui/joy'
 import { useList, useUnit } from 'effector-react'
-import React from 'react'
 import { settings } from '../settings'
 import { shortAddress } from './methods'
 import type { AccountAction } from './types'
 import { accountsManager } from '.'
 import { CopyButton, OpenLink } from '@/shared/ui'
+import PKSourceIcon from '~icons/solar/key-bold'
+import SeedSourceIcon from '~icons/solar/folder-bold'
 
 interface Props {
   Action: React.FC<AccountAction>
@@ -15,7 +15,8 @@ interface Props {
 export function AccountsTable({ Action }: Props) {
   const { hasAccounts } = useUnit(accountsManager)
   const { contractLink } = useUnit(settings.explorer)
-  const list = useList(accountsManager.rawAccounts, ({ contractAddress, ethBalance }) => (<tr>
+  const list = useList(accountsManager.rawAccounts, ({ contractAddress, ethBalance, source }) => (
+    <tr>
       <td>
         <Checkbox size='sm' />
       </td>
@@ -26,6 +27,7 @@ export function AccountsTable({ Action }: Props) {
           gap={1}
         >
           <OpenLink href={contractLink(contractAddress)} />
+          <AccountSourceIcon source={source} />
           {shortAddress(contractAddress)}
           <CopyButton text={contractAddress} />
         </Stack>
@@ -75,5 +77,13 @@ export function AccountsTable({ Action }: Props) {
         </tbody>
       </Table>
     </Sheet>
+  )
+}
+
+export function AccountSourceIcon({ source }: { source: 'pk' | 'seed' }) {
+  return (
+    source === 'seed'
+      ? <SeedSourceIcon />
+      : <PKSourceIcon />
   )
 }
