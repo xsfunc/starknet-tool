@@ -7,27 +7,29 @@ export function PagesMenu() {
   const openSeeds = useUnit(routes.seeds.open)
   const openSettings = useUnit(routes.settings.open)
 
-  return <Dropdown>
-    <MenuButton size='sm'>
-      Menu
-    </MenuButton>
+  return (
+    <Dropdown>
+      <MenuButton size="sm">
+        Menu
+      </MenuButton>
 
-    <Menu
-      sx={{ minWidth: 150 }}
-      placement='bottom-end'
-      id='pages-menu'
-      size='sm'
-    >
-      <MenuItem onClick={() => openAccounts()}>
-        Accounts
-      </MenuItem>
-      <MenuItem onClick={() => openSeeds()}>
-        Seeds
-      </MenuItem>
-      <Divider />
-      <MenuItem onClick={() => openSettings()}>
-        Settings
-      </MenuItem>
-    </Menu>
-  </Dropdown>
+      <Menu
+        sx={{ minWidth: 150 }}
+        placement="bottom-end"
+        id="pages-menu"
+        size="sm"
+      >
+        <MenuItem onClick={() => openAccounts()}>
+          Accounts
+        </MenuItem>
+        <MenuItem onClick={() => openSeeds()}>
+          Seeds
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={() => openSettings()}>
+          Settings
+        </MenuItem>
+      </Menu>
+    </Dropdown>
+  )
 }

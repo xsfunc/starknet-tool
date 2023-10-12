@@ -19,19 +19,19 @@ export function AccountsTable({ Action }: Props) {
   const list = useList(accountsManager.rawAccounts, ({ contractAddress, ethBalance, source, deployed, cairoVersion }) => (
     <tr>
       <td>
-        <Checkbox size='sm' />
+        <Checkbox size="sm" />
       </td>
       <td>
         <Stack
-          direction='row'
-          alignItems='center'
+          direction="row"
+          alignItems="center"
           gap={1}
         >
           <OpenLink href={contractLink(contractAddress)} />
           <AccountSourceIcon source={source} />
           <Typography
             variant={deployed ? 'plain' : undefined}
-            color='neutral'
+            color="neutral"
           >
             {shortAddress(contractAddress)}
           </Typography>
@@ -40,7 +40,10 @@ export function AccountsTable({ Action }: Props) {
         </Stack>
       </td>
       <td>created</td>
-      <td>{ethBalance}ETH</td>
+      <td>
+        {ethBalance}
+        ETH
+      </td>
       <td>?</td>
       <td>
         <Action address={contractAddress} />
@@ -58,7 +61,7 @@ export function AccountsTable({ Action }: Props) {
 
   return (
     <Sheet
-      variant='outlined'
+      variant="outlined"
       sx={{
         p: 1,
         borderRadius: 'md',
@@ -70,7 +73,7 @@ export function AccountsTable({ Action }: Props) {
         <thead>
           <tr>
             <th style={{ width: 50 }}>
-              <Checkbox size='sm' />
+              <Checkbox size="sm" />
             </th>
             <th style={{ width: '40%' }}>Contract Address</th>
             <th>Status</th>
@@ -90,7 +93,7 @@ export function AccountsTable({ Action }: Props) {
 export function AccountSourceIcon({ source }: { source: 'pk' | 'seed' }) {
   return (
     <Tooltip
-      placement='right'
+      placement="right"
       title={source === 'seed' ? 'Created with seed' : 'Created from private key'}
     >
       <Stack>
@@ -111,8 +114,8 @@ export function CairoVersion({ version }: { version: number | undefined }) {
 
   return (
     <Tooltip
-      placement='right'
-      title={'Upgrade account needed'}
+      placement="right"
+      title="Upgrade account needed"
     >
       <Stack>
         <WarningIcon color={theme.colorSchemes.dark.palette.warning.plainColor} />

@@ -24,7 +24,7 @@ export function Layout({ children }: Props) {
   return (
     <Stack
       sx={{ boxSizing: 'border-box', minHeight: '100vh' }}
-      direction='column'
+      direction="column"
     >
       {children}
     </Stack>

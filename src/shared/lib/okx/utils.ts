@@ -31,13 +31,15 @@ export async function getSignature({ apiSecret, method, body, endpoint, customTi
     }))
 }
 
-export async function authHeaders({ credentials, method, endpoint, body }: {
+interface AuthHeaders {
   credentials: Credentials
   method: 'GET' | 'POST'
   endpoint: string
   body?: object
   customTimestamp?: number
-}) {
+}
+
+export async function authHeaders({ credentials, method, endpoint, body }: AuthHeaders) {
   const { signature, timestamp } = await getSignature({
     apiSecret: credentials.apiSecret,
     method,

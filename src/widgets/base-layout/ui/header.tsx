@@ -12,13 +12,13 @@ export function Header() {
   return (
     <HeaderContainer>
       <Stack
-        alignItems='center'
-        direction='row'
+        alignItems="center"
+        direction="row"
         spacing={0.5}
         sx={{ mr: 'auto' }}
       >
         <Typography
-          fontWeight='bold'
+          fontWeight="bold"
           onClick={() => openHome}
           sx={{ cursor: 'pointer' }}
         >
@@ -37,16 +37,17 @@ export function Header() {
       </Stack>
 
       <Stack
-        direction='row'
-        alignItems='center'
+        direction="row"
+        alignItems="center"
         spacing={1}
       >
         {isAuthorized
-          && <>
-            <LockButton />
-            <PagesMenu />
-          </>
-        }
+          && (
+            <>
+              <LockButton />
+              <PagesMenu />
+            </>
+          )}
       </Stack>
     </HeaderContainer>
   )
@@ -59,8 +60,8 @@ interface Props {
 export function HeaderContainer({ children }: Props) {
   return (
     <Container
-      component='header'
-      maxWidth={'lg'}
+      component="header"
+      maxWidth="lg"
       sx={{
         height: 60,
         zIndex: 1,

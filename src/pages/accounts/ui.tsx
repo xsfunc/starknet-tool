@@ -8,23 +8,27 @@ import { AddAccountButton } from '@/widgets/add-account/ui'
 export function AccountsPage() {
   const { accounts } = useUnit(accountsManager)
   const accountsCount = accounts.length > 0 ? `(${accounts.length})` : ''
-  return <>
-    <Stack
-      direction='row'
-      justifyContent='space-between'
-      alignItems='start'
-      sx={{ mb: 2 }}
-    >
-      <Typography level="h1" fontSize="xl2" sx={{ mb: 1 }}>
-        Accounts {accountsCount}
-      </Typography>
+  return (
+    <>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="start"
+        sx={{ mb: 2 }}
+      >
+        <Typography level="h1" fontSize="xl2" sx={{ mb: 1 }}>
+          Accounts
+          {' '}
+          {accountsCount}
+        </Typography>
 
-      <Stack direction='row' gap={1}>
-        <ExportButton />
-        <AddAccountButton />
+        <Stack direction="row" gap={1}>
+          <ExportButton />
+          <AddAccountButton />
+        </Stack>
       </Stack>
-    </Stack>
 
-    <AccountsTable Action={AccountAction} />
-  </>
+      <AccountsTable Action={AccountAction} />
+    </>
+  )
 }

@@ -18,11 +18,11 @@ appStarted()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <CssVarsProvider defaultMode='dark'>
+    <CssVarsProvider defaultMode="dark">
       <CssBaseline />
       <RouterProvider router={router}>
         <TopUpModalDialog />
-        <AddSeedDialog/>
+        <AddSeedDialog />
         <RemoveSeedDialog />
         <AddAccountDialog />
         <RemoveAccountDialog />

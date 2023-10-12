@@ -17,8 +17,8 @@ export function RemoveSeedButton({ uuid }: Props) {
   return (
     <Button
       onClick={() => open(uuid)}
-      color='danger'
-      size='sm'
+      color="danger"
+      size="sm"
     >
       Remove seed
     </Button>
@@ -33,7 +33,7 @@ export function RemoveSeedDialog() {
         variant="outlined"
         role="alertdialog"
         aria-labelledby="remove account"
-        aria-describedby='remove account from list'
+        aria-describedby="remove account from list"
       >
         <Typography
           level="title-lg"

@@ -13,7 +13,7 @@ export function AddAccountButton({ uuid }: Props) {
     <Button
       loading={loading}
       onClick={() => addAccount({ uuid, count: 1 })}
-      size='sm'
+      size="sm"
     >
       Add account
     </Button>

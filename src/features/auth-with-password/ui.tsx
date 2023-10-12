@@ -17,29 +17,29 @@ export function AuthWithPasswordForm() {
   return (
     <Box
       sx={{ height: '70vh' }}
-      display='flex'
-      alignItems='center'
-      justifyContent='center'
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
     >
 
       <Card sx={{ minWidth: 300, maxWidth: 500, my: 'auto' }}>
         <CardContent>
-          <Typography level="title-lg" component='h2' sx={{ mb: 1 }}>
+          <Typography level="title-lg" component="h2" sx={{ mb: 1 }}>
             Password
           </Typography>
 
           <form onSubmit={onSubmit}>
-            <FormControl error={fields.password.hasError()} size='sm' sx={{ mb: 1 }}>
+            <FormControl error={fields.password.hasError()} size="sm" sx={{ mb: 1 }}>
               <Input
                 autoFocus={true}
-                type='password'
-                placeholder='Enter password to unlock'
+                type="password"
+                placeholder="Enter password to unlock"
                 value={fields.password.value}
                 onChange={e => fields.password.onChange(e.target.value)}
               />
-              <FormHelperText >{fields.password.errorText()}</FormHelperText>
+              <FormHelperText>{fields.password.errorText()}</FormHelperText>
             </FormControl>
-            <Button type='submit' size='sm' fullWidth>
+            <Button type="submit" size="sm" fullWidth>
               Unlock
             </Button>
           </form>
@@ -60,7 +60,7 @@ export function LockButton() {
     <IconButton
       onClick={() => lock()}
       variant="plain"
-      size='sm'
+      size="sm"
     >
       <LockIcon />
     </IconButton>

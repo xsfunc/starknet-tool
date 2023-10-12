@@ -17,7 +17,7 @@ export function RemoveAccountDialog() {
         variant="outlined"
         role="alertdialog"
         aria-labelledby="remove account"
-        aria-describedby='remove account from list'
+        aria-describedby="remove account from list"
       >
         <Typography
           level="title-lg"
@@ -27,7 +27,10 @@ export function RemoveAccountDialog() {
         </Typography>
         <Divider sx={{ my: 1 }} />
         <Typography id="alert-dialog-modal-description" textColor="text.tertiary">
-          Are you sure to delete account {store && shortAddress(store.toRemove)}?
+          Are you sure to delete account
+          {' '}
+          {store && shortAddress(store.toRemove)}
+          ?
         </Typography>
         <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end', pt: 2 }}>
           <Button variant="plain" color="neutral" onClick={close}>

@@ -9,7 +9,7 @@ import AddWalletIcon from '~icons/solar/add-square-bold'
 export function AddAccountButton() {
   const { open: openMenu } = useUnit(addAccountModal)
   return (
-    <IconButton onClick={openMenu} variant='solid' size='sm' color='primary'>
+    <IconButton onClick={openMenu} variant="solid" size="sm" color="primary">
       <AddWalletIcon />
     </IconButton>
   )
@@ -45,7 +45,7 @@ export function AddAccountDialog() {
           Add accounts
         </Typography>
 
-        <Stack spacing={1} >
+        <Stack spacing={1}>
           <Button onClick={closeAndCreateBySeed} variant="outlined">
             With new seed phrase
           </Button>

@@ -12,8 +12,8 @@ export function SeedsTable() {
     <tr>
       <td>
         <Stack
-          direction='row'
-          alignItems='center'
+          direction="row"
+          alignItems="center"
           gap={1}
         >
           <CopyButton text={mnemonic} />
@@ -22,7 +22,7 @@ export function SeedsTable() {
       </td>
       <td>{HDPathOffset}</td>
       <td>
-        <Stack direction='row' gap={1}>
+        <Stack direction="row" gap={1}>
           <AddAccountButton uuid={uuid} />
           <RemoveSeedButton uuid={uuid} />
         </Stack>
@@ -40,7 +40,7 @@ export function SeedsTable() {
 
   return (
     <Sheet
-      variant='outlined'
+      variant="outlined"
       sx={{
         p: 1,
         borderRadius: 'md',

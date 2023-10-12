@@ -9,7 +9,7 @@ export function CopyButton({ text }: { text: string }) {
     <IconButton
       onClick={copy}
       variant="plain"
-      size='sm'
+      size="sm"
     >
       <CopyIcon />
     </IconButton>

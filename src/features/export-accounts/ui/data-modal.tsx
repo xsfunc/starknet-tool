@@ -53,8 +53,8 @@ export function AccountsDataModal() {
           Accounts addresses
         </Typography>
         <Textarea
-          size='sm'
-          variant='soft'
+          size="sm"
+          variant="soft"
           value={addresses}
           minRows={20}
         />

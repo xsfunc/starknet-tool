@@ -25,7 +25,7 @@ export function TopUpModalDialog() {
         </Typography>
 
         <Stack spacing={2}>
-          <FormControl size='sm'>
+          <FormControl size="sm">
             <FormLabel>Account address</FormLabel>
             <Input
               autoFocus
@@ -34,18 +34,18 @@ export function TopUpModalDialog() {
               onChange={e => fields.address.onChange(e.target.value)}
             />
           </FormControl>
-          <FormControl size='sm'>
+          <FormControl size="sm">
             <FormLabel>Token</FormLabel>
             <Input
               disabled
-              value='ETH'
+              value="ETH"
             />
           </FormControl>
           <FormControl>
             <FormLabel>Amount</FormLabel>
             <Input
               required
-              type='number'
+              type="number"
               value={fields.amount.value}
               onChange={e => fields.amount.onChange(e.target.value)}
             />
@@ -54,7 +54,7 @@ export function TopUpModalDialog() {
             <FormLabel>Fee</FormLabel>
             <Input
               required
-              type='number'
+              type="number"
               value={fields.fee.value}
               onChange={e => fields.fee.onChange(e.target.value)}
             />

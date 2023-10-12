@@ -21,8 +21,8 @@ export function AccountAction({ address }: Props) {
         <MenuIcon />
       </MenuButton>
       <Menu
-        size='sm'
-        placement='bottom-end'
+        size="sm"
+        placement="bottom-end"
       >
         <MenuItem onClick={() => topUpAccount(address)}>
           Top up balance
@@ -36,12 +36,13 @@ export function AccountAction({ address }: Props) {
         <MenuItem onClick={() => getBalance({
           accountAddress: address,
           ...erc20Tokens.eth,
-        })}>
+        })}
+        >
           Get ETH balance
         </MenuItem>
         <ListDivider />
         <MenuItem
-          color='danger'
+          color="danger"
           onClick={() => openRemoveAccountDialog({ toRemove: address })}
         >
           Delete

@@ -12,7 +12,7 @@ import AddWalletIcon from '~icons/solar/add-square-bold'
 export function AddSeedButton() {
   const { open } = useUnit(seedPhraseDialog)
   return (
-    <IconButton onClick={open} variant='solid' size='sm' color='primary'>
+    <IconButton onClick={open} variant="solid" size="sm" color="primary">
       <AddWalletIcon />
     </IconButton>
   )
@@ -40,26 +40,26 @@ export function AddSeedDialog() {
 
         <form onSubmit={onSubmit}>
           <Stack spacing={1}>
-            <FormControl error={fields.mnemonic.hasError()} size='sm'>
+            <FormControl error={fields.mnemonic.hasError()} size="sm">
               <FormLabel>Mnemonic phrase</FormLabel>
               <Textarea
                 minRows={2}
                 value={fields.mnemonic.value}
                 onChange={e => fields.mnemonic.onChange(e.target.value)}
-                endDecorator={
+                endDecorator={(
                   <Button
-                    size='sm'
+                    size="sm"
                     sx={{ ml: 'auto' }}
-                    variant='outlined'
+                    variant="outlined"
                     onClick={generatePhrase}
                   >
                     Generate
                   </Button>
-                }
+                )}
               />
               <FormHelperText>{errorText('mnemonic')}</FormHelperText>
             </FormControl>
-            <Button type="submit" size='sm'>
+            <Button type="submit" size="sm">
               Add seed
             </Button>
           </Stack>

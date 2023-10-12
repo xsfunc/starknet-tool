@@ -10,7 +10,8 @@ export function GetAccountBalanceButton({ accountAddress, token }: { accountAddr
       onClick={() => getBalance({
         accountAddress,
         ...erc20Tokens[token],
-      })}>
+      })}
+    >
       Get balance
     </Button>
   )

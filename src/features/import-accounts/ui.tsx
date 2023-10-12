@@ -33,7 +33,7 @@ export function ImportAccountModalDialog() {
 
         <form onSubmit={onSubmit}>
           <Stack spacing={2}>
-            <FormControl error={fields.privateKeys.hasError()} size='sm'>
+            <FormControl error={fields.privateKeys.hasError()} size="sm">
               <FormLabel>Private keys</FormLabel>
               <Textarea
                 value={fields.privateKeys.value}

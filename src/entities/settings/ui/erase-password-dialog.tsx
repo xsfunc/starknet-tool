@@ -16,7 +16,7 @@ export function ErasePasswordDialog() {
         variant="outlined"
         role="alertdialog"
         aria-labelledby="remove account"
-        aria-describedby='remove account from list'
+        aria-describedby="remove account from list"
       >
         <Typography
           level="title-lg"
