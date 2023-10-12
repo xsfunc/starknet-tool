@@ -11,6 +11,7 @@ export interface BaseAccountData {
   source: 'seed' | 'pk'
   sourceUuid?: string
   HDPathIndex?: number
+  deployed?: boolean
 }
 
 interface EncryptedAccountData extends BaseAccountData {

@@ -11,4 +11,5 @@ export interface AccountData {
   contractType: 'argent-x'
   source: 'pk' | 'seed'
   cairoVersion: 0 | 1 | 2
+  deployed?: boolean
 }

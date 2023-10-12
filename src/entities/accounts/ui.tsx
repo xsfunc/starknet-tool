@@ -1,4 +1,4 @@
-import { Checkbox, Sheet, Stack, Table, Typography } from '@mui/joy'
+import { Checkbox, Sheet, Stack, Table, Tooltip, Typography, useTheme } from '@mui/joy'
 import { useList, useUnit } from 'effector-react'
 import { settings } from '../settings'
 import { shortAddress } from './methods'
@@ -7,6 +7,7 @@ import { accountsManager } from '.'
 import { CopyButton, OpenLink } from '@/shared/ui'
 import PKSourceIcon from '~icons/solar/key-bold'
 import SeedSourceIcon from '~icons/solar/folder-bold'
+import WarningIcon from '~icons/solar/shield-warning-bold'
 
 interface Props {
   Action: React.FC<AccountAction>
@@ -15,7 +16,7 @@ interface Props {
 export function AccountsTable({ Action }: Props) {
   const { hasAccounts } = useUnit(accountsManager)
   const { contractLink } = useUnit(settings.explorer)
-  const list = useList(accountsManager.rawAccounts, ({ contractAddress, ethBalance, source }) => (
+  const list = useList(accountsManager.rawAccounts, ({ contractAddress, ethBalance, source, deployed, cairoVersion }) => (
     <tr>
       <td>
         <Checkbox size='sm' />
@@ -28,8 +29,14 @@ export function AccountsTable({ Action }: Props) {
         >
           <OpenLink href={contractLink(contractAddress)} />
           <AccountSourceIcon source={source} />
-          {shortAddress(contractAddress)}
+          <Typography
+            variant={deployed ? 'plain' : undefined}
+            color='neutral'
+          >
+            {shortAddress(contractAddress)}
+          </Typography>
           <CopyButton text={contractAddress} />
+          <CairoVersion version={cairoVersion} />
         </Stack>
       </td>
       <td>created</td>
@@ -82,8 +89,34 @@ export function AccountsTable({ Action }: Props) {
 
 export function AccountSourceIcon({ source }: { source: 'pk' | 'seed' }) {
   return (
-    source === 'seed'
-      ? <SeedSourceIcon />
-      : <PKSourceIcon />
+    <Tooltip
+      placement='right'
+      title={source === 'seed' ? 'Created with seed' : 'Created from private key'}
+    >
+      <Stack>
+        {
+          source === 'seed'
+            ? <SeedSourceIcon />
+            : <PKSourceIcon />
+        }
+      </Stack>
+    </Tooltip>
+  )
+}
+
+export function CairoVersion({ version }: { version: number | undefined }) {
+  const theme = useTheme()
+  if (version === 1)
+    return null
+
+  return (
+    <Tooltip
+      placement='right'
+      title={'Upgrade account needed'}
+    >
+      <Stack>
+        <WarningIcon color={theme.colorSchemes.dark.palette.warning.plainColor} />
+      </Stack>
+    </Tooltip>
   )
 }

@@ -1,27 +1,33 @@
 import { invoke } from '@withease/factories'
 import { createForm } from 'effector-forms'
+import type { EventPayload } from 'effector'
 import { createEffect, sample } from 'effector'
 import { type Provider } from 'starknet'
+import { debug } from 'patronum'
 import { createModal, notify, starknetManager, starknetUtils } from '@/shared/lib'
 import { accountsManager } from '@/entities/accounts'
 
 const importAccountsFx = createEffect(importAccountsByPK)
-
-const form = createForm({
+const dialog = invoke(createModal<void>)
+const privateKeysForm = createForm({
   fields: {
     privateKeys: {
       init: '' as string,
-    },
-    contractType: {
-      init: 'argentX',
+      rules: [
+        {
+          name: 'required',
+          validator: value => ({
+            isValid: Boolean(value),
+            errorText: 'At least one private key required',
+          }),
+        },
+      ],
     },
   },
 })
 
-const dialog = invoke(createModal<void>)
-
 sample({
-  clock: form.formValidated,
+  clock: privateKeysForm.formValidated,
   source: starknetManager.provider,
   fn: (provider, { privateKeys }) => ({
     privateKeys: privateKeys.trim().split('\n'),
@@ -30,32 +36,33 @@ sample({
   target: [
     dialog.close,
     importAccountsFx,
+    privateKeysForm.reset,
   ],
 })
 
-sample({
-  clock: importAccountsFx.doneData,
-  fn: accounts => accounts.map(account => ({
-    ...account,
-    encrypted: false,
-    status: 'created',
-    contractType: 'argent-x',
-  }) as const),
-  target: accountsManager.addAccounts,
-})
+// sample({
+//   clock: importAccountsFx.doneData,
+//   fn: accounts => accounts.map(account => ({
+//     ...account,
+//     encrypted: false,
+//     status: 'created',
+//     contractType: 'argent-x',
+//   }) as const),
+//   target: accountsManager.addAccounts,
+// })
 
 sample({
   clock: importAccountsFx.failData,
-  fn: ({ message }) => ({
-    message: `Error: ${message}`,
-    type: 'error',
-  } as const),
-  target: notify,
+  target: notify.prepend(errorWhileAddingAccounts),
+})
+
+debug({
+  importAccs: importAccountsFx,
 })
 
 export const importAccounts = {
+  form: privateKeysForm,
   dialog,
-  form,
 }
 
 interface ImportAccountsProps {
@@ -63,14 +70,22 @@ interface ImportAccountsProps {
   provider: Provider
 }
 
-async function importAccountsByPK({
-  privateKeys,
-  provider,
-}: ImportAccountsProps) {
-  const accounts = []
-  for await (const privateKey of privateKeys) {
+async function importAccountsByPK({ privateKeys, provider }: ImportAccountsProps) {
+  const uniqKeys = [...new Set(privateKeys)]
+  // const accounts = []
+  for await (const privateKey of uniqKeys) {
     const account = await starknetUtils.createAccountWithPK({ find: true, provider, privateKey })
-    accounts.push(account)
+    accountsManager.addAccount(account)
+    // accounts.push(account)
   }
-  return accounts
+  // return accounts
+}
+
+function errorWhileAddingAccounts(
+  error: EventPayload<typeof importAccountsFx.failData>,
+): EventPayload<typeof notify> {
+  return {
+    message: `Error: ${error.message}`,
+    type: 'error',
+  }
 }

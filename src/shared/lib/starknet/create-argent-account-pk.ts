@@ -39,14 +39,14 @@ async function findContractAddress(privateKey: string, publicKey: string, provid
     .getClassAt(raw030Account.contractAddress)
     .catch(() => null)
   if (result030)
-    return raw030Account
+    return { ...raw030Account, deployed: true }
 
   const result0231 = await provider
     .getClassAt(raw0231Account.contractAddress)
     .catch(() => null)
   if (result0231) {
     const cairoVersion = cairo.isCairo1Abi(result0231.abi) ? 1 : 0
-    return { ...raw0231Account, cairoVersion }
+    return { ...raw0231Account, cairoVersion, deployed: true }
   }
   // if nothing found return address of last version contract
   return raw030Account
