@@ -7,6 +7,7 @@ import { removeAccountDialog } from '@/features/remove-account'
 import { deployAccount } from '@/features/deploy-account'
 import { upgradeAccount } from '@/features/update-contract'
 import { getAccountBalance } from '@/features/get-account-balance'
+import type { ERC20 } from '@/shared/config'
 import { erc20Tokens } from '@/shared/config'
 
 export function AccountAction({ address }: Props) {
@@ -35,7 +36,7 @@ export function AccountAction({ address }: Props) {
         </MenuItem>
         <MenuItem onClick={() => getBalance({
           accountAddress: address,
-          ...erc20Tokens.eth,
+          ...erc20Tokens.eth as ERC20,
         })}
         >
           Get ETH balance

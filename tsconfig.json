@@ -1,17 +1,14 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ES2022",
     "jsx": "react-jsx",
-    "lib": [
-      "ESNext",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["es2022", "dom", "dom.iterable"],
+    "moduleDetection": "force",
     "useDefineForClassFields": true,
     "baseUrl": ".",
     "rootDir": "src",
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "Bundler",
     "paths": {
       "@/*": [
         "src/*"
@@ -21,15 +18,14 @@
     "types": [
       "unplugin-icons/types/react"
     ],
-    "allowImportingTsExtensions": true,
     "allowJs": true,
     "checkJs": false,
     "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "noUncheckedIndexedAccess": true,
     "noEmit": true,
+    "esModuleInterop": true,
     "isolatedModules": true,
+    "verbatimModuleSyntax": false,
     "skipLibCheck": true
   },
   "references": [

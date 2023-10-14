@@ -72,6 +72,13 @@ function createNotification({ result }: { result: BalancesResponse }) {
       type: 'error',
     })
   }
+  if (result.data[0] === undefined) {
+    return notify({
+      message: 'No tokens an balance.',
+      options: { duration: 3500 },
+      type: 'error',
+    })
+  }
 
   const formatter = new Intl.NumberFormat('en-EN', { maximumSignificantDigits: 4 })
   const balance = formatter.format(Number(result.data[0].availBal))
