@@ -2,7 +2,6 @@ import { createEffect, createEvent, sample } from 'effector'
 import type { Output } from 'valibot'
 import { array, boolean, enumType, literal, number, object, optional, parseAsync, partial, string, transform, union } from 'valibot'
 import { invoke } from '@withease/factories'
-import { debug } from 'patronum'
 import { accountsManager } from '@/entities/accounts'
 import { seedsManager } from '@/entities/seeds'
 import { settings } from '@/entities/settings'
@@ -50,10 +49,6 @@ sample({
     passwordHash: settings.security.passwordHash,
   },
   target: downloadDataFx,
-})
-
-debug({
-  validate: validateFileFx,
 })
 
 function coerceAccountSource(value: 'pk' | 'seed' | undefined): 'pk' | 'seed' {

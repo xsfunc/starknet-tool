@@ -1,7 +1,6 @@
 import { createEffect, createEvent, sample } from 'effector'
 import type { Provider } from 'starknet'
 import { Account, CallData, ec, hash } from 'starknet'
-import { debug } from 'patronum'
 import { notify, starknetManager } from '@/shared/lib'
 import type { AccountData } from '@/entities/accounts'
 import { accountsManager } from '@/entities/accounts'
@@ -31,10 +30,6 @@ sample({
   clock: deployAccountFx.fail,
   fn: () => ({ message: 'Error occurred.', type: 'error' } as const),
   target: notify,
-})
-
-debug({
-  fail: deployAccountFx.fail,
 })
 
 export const deployAccount = deployCalled

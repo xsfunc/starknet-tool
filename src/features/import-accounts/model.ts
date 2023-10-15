@@ -3,7 +3,6 @@ import { createForm } from 'effector-forms'
 import type { EventPayload } from 'effector'
 import { createEffect, sample } from 'effector'
 import type { Provider } from 'starknet'
-import { debug } from 'patronum'
 import { createModal, notify, starknetManager, starknetUtils } from '@/shared/lib'
 import { accountsManager } from '@/entities/accounts'
 
@@ -54,10 +53,6 @@ sample({
 sample({
   clock: importAccountsFx.failData,
   target: notify.prepend(errorWhileAddingAccounts),
-})
-
-debug({
-  importAccs: importAccountsFx,
 })
 
 export const importAccounts = {
