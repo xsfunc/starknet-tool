@@ -6,6 +6,7 @@ import { createModalDialog, hash, notify } from '@/shared/lib'
 
 const createPasswordHashFx = createEffect(hash)
 const resetPassword = createEvent()
+const changePasswordHashCalled = createEvent<string>()
 
 const $password = createStore('')
 const $passwordHash = createStore('').reset(resetPassword)
@@ -45,11 +46,15 @@ export const passwordForm = createForm({
 sample({
   clock: passwordForm.formValidated,
   fn: ({ password }) => password,
-  target: [$password],
+  target: $password,
 })
 sample({
   clock: $password,
   target: createPasswordHashFx,
+})
+sample({
+  clock: changePasswordHashCalled,
+  target: $passwordHash,
 })
 sample({
   clock: createPasswordHashFx.doneData,
@@ -68,6 +73,7 @@ sample({
 export const passwordSettings = {
   password: $password,
   passwordHash: $passwordHash,
+  changePasswordHash: changePasswordHashCalled,
   usePassword: $usePassword,
   resetPassword,
 }

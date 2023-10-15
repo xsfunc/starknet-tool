@@ -2,6 +2,7 @@ import { createEvent, createStore, sample } from 'effector'
 import { persist } from 'effector-storage/local'
 import type { Seed } from './types'
 
+const setSeedsCalled = createEvent<Seed[]>()
 const addSeedCalled = createEvent<Seed>()
 const removeSeedCalled = createEvent<string>()
 const updateSeedCalled = createEvent<{ uuid: string; update: Partial<Seed> }>()
@@ -9,6 +10,10 @@ const updateSeedCalled = createEvent<{ uuid: string; update: Partial<Seed> }>()
 const $seeds = createStore<Seed[]>([])
 const $hasSeeds = $seeds.map(seeds => seeds.length > 0)
 
+sample({
+  clock: setSeedsCalled,
+  target: $seeds,
+})
 sample({
   clock: addSeedCalled,
   source: $seeds,
@@ -37,6 +42,7 @@ export const seedsManager = {
   seeds: $seeds,
   hasSeeds: $hasSeeds,
   addSeed: addSeedCalled,
+  setSeeds: setSeedsCalled,
   updateSeed: updateSeedCalled,
   removeSeed: removeSeedCalled,
 }

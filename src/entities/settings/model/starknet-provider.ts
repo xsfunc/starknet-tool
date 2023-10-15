@@ -1,11 +1,12 @@
-import { createStore, sample } from 'effector'
+import { createEvent, createStore, sample } from 'effector'
 import { constants } from 'starknet'
 import { createForm } from 'effector-forms'
 import { persist } from 'effector-storage/local'
 import { type ProviderPayload, type ProviderType, starknetManager } from '@/shared/lib'
 import { routes } from '@/shared/config'
 
-export const $provider = createStore<ProviderPayload>({
+const changeCalled = createEvent<ProviderPayload>()
+const $provider = createStore<ProviderPayload>({
   type: 'sequencer',
   url: constants.NetworkName.SN_MAIN,
 })
@@ -22,6 +23,15 @@ export const providerForm = createForm({
   validateOn: ['submit'],
 })
 
+export const starknetProvider = {
+  instance: $provider,
+  change: changeCalled,
+}
+
+sample({
+  clock: changeCalled,
+  target: $provider,
+})
 sample({
   clock: providerForm.formValidated,
   filter: (p: ProviderPayload | null): p is ProviderPayload => Boolean(p),

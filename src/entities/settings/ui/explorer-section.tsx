@@ -3,7 +3,7 @@ import { useUnit } from 'effector-react'
 import { settings } from '@/entities/settings'
 
 export function ExplorerSection() {
-  const { active, update } = useUnit(settings.explorer)
+  const { instance: active, change: update } = useUnit(settings.explorer)
   return (
     <>
       <Typography level="title-lg" component="h2" sx={{ mb: 1 }}>

@@ -1,6 +1,6 @@
 import { explorer } from './model/explorer'
-import { $credentials, getBalances } from './model/okx'
-import { $provider } from './model/starknet-provider'
+import { $credentials, getBalances, updateCredentials } from './model/okx'
+import { starknetProvider } from './model/starknet-provider'
 import { passwordSettings } from '.'
 
 export * from './model/password'
@@ -13,11 +13,12 @@ export * from './ui/erase-password-dialog'
 
 export const settings = {
   explorer,
+  starknetProvider,
   security: passwordSettings,
-  starknetProvider: $provider,
   okx: {
     isCredentialsValid: $credentials.map(({ isValid }) => isValid),
     isValidating: getBalances.$status.map(status => status === 'pending'),
     credentials: $credentials,
+    updateCredentials,
   },
 }

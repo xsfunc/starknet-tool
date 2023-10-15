@@ -4,7 +4,7 @@ export interface BaseAccountData {
   privateKey: string
   publicKey: string
   contractAddress: string
-  contractType: 'argent-x' | 'braavos'
+  contractType: 'argent-x'
   cairoVersion?: 0 | 1 | 2
   note?: string
   ethBalance?: number

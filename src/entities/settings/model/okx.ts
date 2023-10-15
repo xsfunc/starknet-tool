@@ -11,6 +11,7 @@ type CredentialsStore = StoreValue<typeof $credentials>
 const updateCredentialsCalled = createEvent<Partial<CredentialsStore>>()
 const notifyFx = createEffect(createNotification)
 
+export { updateCredentialsCalled as updateCredentials }
 export const getBalances = attachOperation(okx.api.balances)
 export const $credentials = createStore({
   apiKey: '',

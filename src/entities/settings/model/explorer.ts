@@ -9,13 +9,13 @@ const base: Record<Explorer, string> = {
   voyager: 'https://voyager.online',
 }
 
-const updateCalled = createEvent<Explorer>()
+const changeCalled = createEvent<Explorer>()
 const $explorer = createStore<Explorer>('starkscan')
-  .on(updateCalled, (_, newValue) => newValue)
+  .on(changeCalled, (_, newValue) => newValue)
 
 export const explorer = {
-  active: $explorer,
-  update: updateCalled,
+  instance: $explorer,
+  change: changeCalled,
   contractLink: $explorer.map(contractLinkWithExplorer),
   txLink: $explorer.map(txLinkWithExplorer),
 }
@@ -25,6 +25,7 @@ persist({ store: $explorer, key: 'starknet-explorer' })
 function txLinkWithExplorer(explorer: Explorer) {
   return (tx: string) => base[explorer].concat(`/tx/${tx}`)
 }
+
 function contractLinkWithExplorer(explorer: Explorer) {
   const reducers: Record<Explorer, (address: string) => string> = {
     oklink: (address: string) => base.oklink.concat(`/address/${address}`),

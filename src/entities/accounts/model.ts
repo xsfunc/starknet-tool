@@ -11,7 +11,12 @@ const $hasAccounts = $rawAccounts.map(({ length }) => length > 0)
 
 const updateAccountCalled = createEvent<UpdateAccountPayload>()
 const addAccountsCalled = createEvent<AccountData[]>()
+const setAccountsCalled = createEvent<AccountData[]>()
 
+sample({
+  clock: setAccountsCalled,
+  target: $rawAccounts,
+})
 sample({
   clock: addAccountsCalled,
   source: $rawAccounts,
@@ -51,6 +56,7 @@ export const accountsManager = {
   accounts: $accounts,
   rawAccounts: $rawAccounts,
   hasAccounts: $hasAccounts,
+  setAccounts: setAccountsCalled,
   addAccounts: addAccountsCalled,
   updateAccount: updateAccountCalled,
   addAccount: addAccountsCalled.prepend((account: AccountData) => [account]),

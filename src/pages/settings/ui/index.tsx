@@ -2,6 +2,7 @@ import { Box, Divider, Typography } from '@mui/joy'
 import { OkxSection } from './okx-section'
 import { StarknetProviderSection } from './provider-section'
 import { ExplorerSection, PasswordSection } from '@/entities/settings'
+import { ImportExportDataSection } from '@/features/import-export-data'
 
 export function SettingsPage() {
   return (
@@ -24,6 +25,8 @@ export function SettingsPage() {
       <OkxSection />
       <Divider sx={{ my: 3 }} />
       <PasswordSection />
+      <Divider sx={{ my: 3 }} />
+      <ImportExportDataSection />
     </Box>
   )
 }
